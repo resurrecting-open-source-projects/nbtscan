@@ -1,0 +1,32 @@
+Version 1.0.2 - March 30, 2000
+
+- Added retransmits (-m option) (Several people asked)
+- Added output bandwidth throttling (-b option) (Suggested
+  by Jason Garman <jgarman@wedgie.org>)
+- Rewrote sending queries and receiving answers part for more
+  reliable scanning of large blocks of addresses. (Suggested
+  by Jason Garman <jgarman@wedgie.org>)
+- Added script-friendly output option (-s) (Suggested by
+  Patrick Heim <Maldoror@Worldnet.att.net>)
+- Added printing of human-readable NetBIOS service names (-h)
+  (Suggested by Patrick Heim <Maldoror@Worldnet.att.net>)
+- Added -q command line option that suppresses printing
+  banners and error messages. (Suggested by Sam Bayne 
+  <sbayne@sccd.ctc.edu>)
+- Rewrote parse_response completely. This allows for better
+  parsing of Samba servers' responses. (Bug reported by 
+  Sam Bayne <sbayne@sccd.ctc.edu>)
+- Added -d command line option which makes whole packets
+  get printed
+- Various cosmetic improvements including fixing some
+  spelling errors
+
+Version 1.0.1 - May 5, 1999
+
+- Fixed incorrect parsing of MAC address in parse_response() 
+  which made last byte of MAC addresses appear as 00. Bug 
+  pointed by Joseph Moon.  
+- Changed message saying "Warning: -r option not supported 
+  under NT." to more accurate saying: "Warning: -r option not 
+  supported under Windows."
+- Corrected a typo in README.

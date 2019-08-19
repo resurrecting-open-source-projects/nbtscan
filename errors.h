@@ -5,4 +5,4 @@
 
 #define err_print(error, quiet) if(!quiet) perror(error);
 
-#endif ERRORS_H
+#endif /* ERRORS_H */

@@ -89,11 +89,12 @@ int name_mangle( char *In, char *Out, char name_type ) {
 /* end of code from Samba */
 
 
-int send_query(int sock, struct in_addr dest_addr, uint32_t rtt_base) {
+int send_query(int sock, struct in_addr dest_addr, my_uint32_t rtt_base) {
         struct nbname_request request;
 	struct sockaddr_in dest_sockaddr;
 	int status;
 	struct timeval tv;
+	char errmsg[80];
 
         bzero((void*)&dest_sockaddr, sizeof(dest_sockaddr));
         dest_sockaddr.sin_family = AF_INET;
@@ -116,23 +117,26 @@ int send_query(int sock, struct in_addr dest_addr, uint32_t rtt_base) {
         
 	status = sendto(sock, (char*)&request, sizeof(request), 0,
                 (struct sockaddr *)&dest_sockaddr, sizeof(dest_sockaddr));
-	if(status==-1) { err_print("Sendto failed", quiet); return(-1);};
+	if(status==-1) {
+	        snprintf(errmsg, 80, "%s\tSendto failed", inet_ntoa(dest_addr));
+	        err_print(errmsg, quiet); return(-1);
+        };
 };
 
-uint32_t get32(void* data) {
+my_uint32_t get32(void* data) {
 	union {
 		char bytes[4];
-		uint32_t all;
+		my_uint32_t all;
 	} x;
 
 	memcpy(x.bytes, data, 4);
 	return(ntohl(x.all));
 };
 
-uint16_t get16(void* data) {
+my_uint16_t get16(void* data) {
         union {
                 char bytes[2];
-                uint16_t all;
+                my_uint16_t all;
         } x;
 
         memcpy(x.bytes, data, 2);
@@ -362,8 +366,13 @@ nb_service_t services[] = {
 "Forte_$ND800ZA", 0x20, 1, "DCA IrmaLan Gateway Server Service"
 };
 
-char* getnbservicename(uint8_t service, int unique, char* name) {
+char* getnbservicename(my_uint8_t service, int unique, char* name) {
 	int i;
+	char *unknown;
+
+	unknown = (char*)malloc(100);
+
+	if(!unknown) err_die("Malloc failed.\n", 0);
 	
 	for(i=0; i < 35; i++) {
 		if(strstr(name, services[i].nb_name) && 
@@ -371,5 +380,7 @@ char* getnbservicename(uint8_t service, int unique, char* name) {
 			unique == services[i].unique)
 		return services[i].service_name;
 	};	
-	return("Unknown service");
+
+	snprintf(unknown, 100, "Unknown service (code %x)", service);
+	return(unknown);
 };

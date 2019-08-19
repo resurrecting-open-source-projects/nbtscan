@@ -17,7 +17,7 @@
 int quiet=0;
 
 print_banner() {
-  printf("\nNBTscan version 1.0.3. Copyright (C) 1999-2000 Alla Bezroutchko.\n");
+  printf("\nNBTscan version 1.5.1. Copyright (C) 1999-2003 Alla Bezroutchko.\n");
   printf("This is a free software and it comes with absolutely no warranty.\n");
   printf("You can use, distribute and modify it under terms of GNU GPL.\n\n");
 }
@@ -242,6 +242,8 @@ int print_hostinfo(struct in_addr addr, struct nb_host_info* hostinfo, char* sf)
 	   hostinfo->footer->adapter_address[0], hostinfo->footer->adapter_address[1],
 	   hostinfo->footer->adapter_address[2], hostinfo->footer->adapter_address[3],
 	   hostinfo->footer->adapter_address[4], hostinfo->footer->adapter_address[5]);
+  } else {
+    printf("\n");
   };
   return 1;
 };
@@ -447,7 +449,6 @@ int main(int argc, char *argv[]) {
 
 	
   if(!(quiet || sf || lmhosts || etc_hosts)) printf("Doing NBT name scan for addresses from %s\n\n", target_string);
-  free(target_string);
 
   /* Finished with options */
   /*************************/

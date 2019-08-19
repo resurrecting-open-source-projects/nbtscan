@@ -31,10 +31,14 @@ AC_CANONICAL_SYSTEM
 
 if test "$target_os" = cygwin; then
 AC_DEFINE(WINDOWS)
+exec_prefix=c:/nbtscan
+prefix=c:/nbtscan
 BINDIR=c:
 TARGET=nbtscan.exe
 else
 AC_DEFINE(UNIX)
+exec_prefix=/usr/local
+prefix=/usr/local
 BINDIR=$prefix/bin
 TARGET=nbtscan
 fi

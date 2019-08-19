@@ -8,13 +8,13 @@ TARGET=@TARGET@
 
 prefix      = @prefix@
 exec_prefix = @exec_prefix@
-bindir      = @bindir@
+BINDIR      = @bindir@
 
 nbtscan: $(OBJECTS)
 	$(CC) $(CFLAGS) -o nbtscan $(OBJECTS) $(LIBS)
 
 install:
-	$(INSTALL) $(TARGET) $(DESTDIR)$(BINDIR)/$(TARGET)
+	$(INSTALL) $(TARGET) $(BINDIR)/$(TARGET)
 
 nbtscan.o: nbtscan.c statusq.h range.h list.h
 	$(CC) $(CFLAGS) $(DEFS) -c nbtscan.c

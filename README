@@ -1,4 +1,4 @@
-NBTscan version 1.5. Copyright (C) 1999-2002 Alla Bezroutchko
+NBTscan version 1.5.1 Copyright (C) 1999-2003 Alla Bezroutchko
 
 NBTscan is a program for scanning IP networks for NetBIOS name
 information. It sends NetBIOS status query to each address in
@@ -115,6 +115,10 @@ Windows version has a certain limitation: you cannot scan Win95
 hosts with it because Windows 95 always sends responses to name 
 queries to port 137, and you cannot bind to port 137 under
 Windows (it is already taken by Windows itself).
+
+When talking to Samba boxes nbtscan always reports the MAC 
+address being 00-00-00-00-00-00. This is because Samba sends 
+that as MAC address. Nbtscan just displays what it gets.
 
 Report bugs to alla@inetcat.org (that's me). I cannot promise to
 do anything but I might well want fix it. Remember: no warranty.

@@ -1,3 +1,9 @@
+Version 1.5.1 - June 2003
+
+- Fixed segmentation fault when using -f option (noticed by Brian Lovrin)
+- Fixed printing ugliness (noticed by Darren Critchley)
+- Changed version number :) (1.5 said that it is 1.0.3 - now it proudly says 1.5.1)
+
 Version 1.5 - May 2002
 
 - Fixed a bug in displaying of 15-character NetBIOS names (15th character wasn't displayed). Bug reported by Tom Kustner (Tom.Kustner@mortgage.wellsFargo.COM), Kenny Breck (KCBreck@NetZero.net) and Richard IJzermans (richard.ijzermans@lgphilips-displays.com)

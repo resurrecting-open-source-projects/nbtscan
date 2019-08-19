@@ -35,14 +35,14 @@ int is_ip(char* string, struct ip_range* range) {
    Returns 1 on success, 0 on failure */
 int is_range1(char* string, struct ip_range* range) {
 	char* separator;
-	unsigned long mask;
+	unsigned int mask;
 	char* ip;
 
 	if((ip = (char *)malloc(strlen(string)+1))==NULL) 
 		err_die("Malloc failed", quiet);
 
 	if (strlen(string)>19) return 0;
-	if(separator=(char*)strchr(string,'/')) {
+	if((separator=(char*)strchr(string,'/'))) {
 		separator++;
 		mask=atoi(separator);
 		if(mask<=0 || mask>32) return 0;
@@ -98,7 +98,7 @@ int is_range2(char* string, struct ip_range* range) {
 		err_die("Malloc failed", quiet);
 	strcpy(ip,string);
 
-	if(separator = (char*)strchr(ip,'-')) {
+	if((separator = (char*)strchr(ip,'-'))) {
 		*separator=0;
 		separator++;
 		last_octet = atoi(separator);
@@ -124,7 +124,7 @@ int is_range2(char* string, struct ip_range* range) {
 	return 0;
 };
 
-int print_range(const struct ip_range* range) {
+void print_range(const struct ip_range* range) {
 	struct in_addr *addr;
 	
 	if((addr = (struct in_addr*)malloc(sizeof(struct in_addr)))==NULL) 

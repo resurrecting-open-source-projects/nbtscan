@@ -49,7 +49,7 @@ int compare(struct list_item* item1, struct list_item* item2) {
 	if(item1==NULL) return 1;
 	if(item1->content == item2->content) return 0;
 	if(item1->content > item2->content) return 1;
-	if(item1->content < item2->content) return -1;
+	return -1;
 };
 
 int insert(struct list* lst, unsigned long content) {
@@ -95,11 +95,11 @@ int insert(struct list* lst, unsigned long content) {
 		free(item);
 		return ERROR;
 	};
+	return 0;
 };
 
 int in_list(struct list* lst, unsigned long content) {
 	struct list_item *temp_item, *item;
-        int cmp;
 
 	item = new_list_item(content);
 	if(lst->head==NULL) return 0;

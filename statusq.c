@@ -1,5 +1,5 @@
 /* This file contains a portion of code from Samba package, *
-/* which contains the following license:                    *
+/  which contains the following license:                    *
 /
    Unix SMB/Netbios implementation
    Version 1.9
@@ -31,6 +31,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stddef.h>
+#include <ctype.h>
 #include "errors.h"
 
 extern int quiet;
@@ -89,7 +90,7 @@ int name_mangle( char *In, char *Out, char name_type ) {
 /* end of code from Samba */
 
 
-int send_query(int sock, struct in_addr dest_addr, my_uint32_t rtt_base) {
+void send_query(int sock, struct in_addr dest_addr, my_uint32_t rtt_base) {
         struct nbname_request request;
 	struct sockaddr_in dest_sockaddr;
 	int status;
@@ -119,7 +120,7 @@ int send_query(int sock, struct in_addr dest_addr, my_uint32_t rtt_base) {
                 (struct sockaddr *)&dest_sockaddr, sizeof(dest_sockaddr));
 	if(status==-1) {
 	        snprintf(errmsg, 80, "%s\tSendto failed", inet_ntoa(dest_addr));
-	        err_print(errmsg, quiet); return(-1);
+	        err_print(errmsg, quiet);
         };
 };
 
@@ -329,41 +330,41 @@ struct nb_host_info* parse_response(char* buff, int buffsize) {
 };
 
 nb_service_t services[] = {
-"__MSBROWSE__", 0x01, 0, "Master Browser",
-"INet~Services", 0x1C, 0, "IIS",
-"IS~", 0x00, 1, "IIS",
-"", 0x00, 1, "Workstation Service",
-"", 0x01, 1, "Messenger Service",
-"", 0x03, 1, "Messenger Service",
-"", 0x06, 1, "RAS Server Service",
-"", 0x1F, 1, "NetDDE Service",
-"", 0x20, 1, "File Server Service",
-"", 0x21, 1, "RAS Client Service",
-"", 0x22, 1, "Microsoft Exchange Interchange(MSMail Connector)",
-"", 0x23, 1, "Microsoft Exchange Store",
-"", 0x24, 1, "Microsoft Exchange Directory",
-"", 0x30, 1, "Modem Sharing Server Service",
-"", 0x31, 1, "Modem Sharing Client Service",
-"", 0x43, 1, "SMS Clients Remote Control",
-"", 0x44, 1, "SMS Administrators Remote Control Tool",
-"", 0x45, 1, "SMS Clients Remote Chat",
-"", 0x46, 1, "SMS Clients Remote Transfer",
-"", 0x4C, 1, "DEC Pathworks TCPIP service on Windows NT",
-"", 0x52, 1, "DEC Pathworks TCPIP service on Windows NT",
-"", 0x87, 1, "Microsoft Exchange MTA",
-"", 0x6A, 1, "Microsoft Exchange IMC",
-"", 0xBE, 1, "Network Monitor Agent",
-"", 0xBF, 1, "Network Monitor Application",
-"", 0x03, 1, "Messenger Service",
-"", 0x00, 0, "Domain Name",
-"", 0x1B, 1, "Domain Master Browser",
-"", 0x1C, 0, "Domain Controllers",
-"", 0x1D, 1, "Master Browser",
-"", 0x1E, 0, "Browser Service Elections",
-"", 0x2B, 1, "Lotus Notes Server Service",
-"IRISMULTICAST", 0x2F, 0, "Lotus Notes",
-"IRISNAMESERVER", 0x33, 0, "Lotus Notes",
-"Forte_$ND800ZA", 0x20, 1, "DCA IrmaLan Gateway Server Service"
+{"__MSBROWSE__", 0x01, 0, "Master Browser"},
+{"INet~Services", 0x1C, 0, "IIS"},
+{"IS~", 0x00, 1, "IIS"},
+{"", 0x00, 1, "Workstation Service"},
+{"", 0x01, 1, "Messenger Service"},
+{"", 0x03, 1, "Messenger Service"},
+{"", 0x06, 1, "RAS Server Service"},
+{"", 0x1F, 1, "NetDDE Service"},
+{"", 0x20, 1, "File Server Service"},
+{"", 0x21, 1, "RAS Client Service"},
+{"", 0x22, 1, "Microsoft Exchange Interchange(MSMail Connector)"},
+{"", 0x23, 1, "Microsoft Exchange Store"},
+{"", 0x24, 1, "Microsoft Exchange Directory"},
+{"", 0x30, 1, "Modem Sharing Server Service"},
+{"", 0x31, 1, "Modem Sharing Client Service"},
+{"", 0x43, 1, "SMS Clients Remote Control"},
+{"", 0x44, 1, "SMS Administrators Remote Control Tool"},
+{"", 0x45, 1, "SMS Clients Remote Chat"},
+{"", 0x46, 1, "SMS Clients Remote Transfer"},
+{"", 0x4C, 1, "DEC Pathworks TCPIP service on Windows NT"},
+{"", 0x52, 1, "DEC Pathworks TCPIP service on Windows NT"},
+{"", 0x87, 1, "Microsoft Exchange MTA"},
+{"", 0x6A, 1, "Microsoft Exchange IMC"},
+{"", 0xBE, 1, "Network Monitor Agent"},
+{"", 0xBF, 1, "Network Monitor Application"},
+{"", 0x03, 1, "Messenger Service"},
+{"", 0x00, 0, "Domain Name"},
+{"", 0x1B, 1, "Domain Master Browser"},
+{"", 0x1C, 0, "Domain Controllers"},
+{"", 0x1D, 1, "Master Browser"},
+{"", 0x1E, 0, "Browser Service Elections"},
+{"", 0x2B, 1, "Lotus Notes Server Service"},
+{"IRISMULTICAST", 0x2F, 0, "Lotus Notes"},
+{"IRISNAMESERVER", 0x33, 0, "Lotus Notes"},
+{"Forte_$ND800ZA", 0x20, 1, "DCA IrmaLan Gateway Server Service"}
 };
 
 char* getnbservicename(my_uint8_t service, int unique, char* name) {

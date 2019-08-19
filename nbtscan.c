@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <sys/time.h>
 #include <string.h>
+#include <unistd.h>
+#include <getopt.h>
 #if HAVE_STDINT_H
 #include <stdint.h>
 #endif
@@ -16,7 +18,12 @@
 
 int quiet=0;
 
-print_banner() {
+char* getnbservicename(my_uint8_t service, int unique, char* name);
+struct nb_host_info* parse_response(char* buff, int buffsize);
+int in_list(struct list* lst, unsigned long content);
+void send_query(int sock, struct in_addr dest_addr, my_uint32_t rtt_base);
+
+void print_banner(void) {
   printf("\nNBTscan version 1.5.1. Copyright (C) 1999-2003 Alla Bezroutchko.\n");
   printf("This is a free software and it comes with absolutely no warranty.\n");
   printf("You can use, distribute and modify it under terms of GNU GPL.\n\n");
@@ -77,13 +84,13 @@ int set_range(char* range_str, struct ip_range* range_struct) {
   return 0;
 };
 
-int print_header() {
+void print_header(void) {
   printf("%-17s%-17s%-10s%-17s%-17s\n", "IP address", "NetBIOS Name", 
 	 "Server", "User", "MAC address");
   printf("------------------------------------------------------------------------------\n");
 };
 
-int d_print_hostinfo(struct in_addr addr, const struct nb_host_info* hostinfo) {
+void d_print_hostinfo(struct in_addr addr, const struct nb_host_info* hostinfo) {
   int i;
   unsigned char service; /* 16th byte of NetBIOS name */
   char name[16];
@@ -117,7 +124,7 @@ int d_print_hostinfo(struct in_addr addr, const struct nb_host_info* hostinfo) {
   };
 	
   if(hostinfo->footer) {
-    printf("Adapter address: %02x-%02x-%02x-%02x-%02x-%02x\n", 
+    printf("Adapter address: %02x:%02x:%02x:%02x:%02x:%02x\n", 
 	   hostinfo->footer->adapter_address[0], hostinfo->footer->adapter_address[1],
 	   hostinfo->footer->adapter_address[2], hostinfo->footer->adapter_address[3],
 	   hostinfo->footer->adapter_address[4], hostinfo->footer->adapter_address[5]); 
@@ -150,7 +157,6 @@ int v_print_hostinfo(struct in_addr addr, const struct nb_host_info* hostinfo, c
   int i, unique;
   my_uint8_t service; /* 16th byte of NetBIOS name */
   char name[16];
-  char* sname;
 
   if(!sf) {
     printf("\nNetBIOS Name Table for Host %s:\n\n", inet_ntoa(addr));
@@ -189,7 +195,7 @@ int v_print_hostinfo(struct in_addr addr, const struct nb_host_info* hostinfo, c
   if(hostinfo->footer) {
     if(sf) printf("%s%sMAC%s", inet_ntoa(addr), sf, sf); 
     else printf("\nAdapter address: ");
-    printf("%02x-%02x-%02x-%02x-%02x-%02x\n",
+    printf("%02x:%02x:%02x:%02x:%02x:%02x\n",
 	   hostinfo->footer->adapter_address[0], hostinfo->footer->adapter_address[1],
 	   hostinfo->footer->adapter_address[2], hostinfo->footer->adapter_address[3],
 	   hostinfo->footer->adapter_address[4], hostinfo->footer->adapter_address[5]);	
@@ -238,7 +244,7 @@ int print_hostinfo(struct in_addr addr, struct nb_host_info* hostinfo, char* sf)
     printf("%-17s", user_name);
   };
   if(hostinfo->footer) {
-    printf("%02x-%02x-%02x-%02x-%02x-%02x\n",
+    printf("%02x:%02x:%02x:%02x:%02x:%02x\n",
 	   hostinfo->footer->adapter_address[0], hostinfo->footer->adapter_address[1],
 	   hostinfo->footer->adapter_address[2], hostinfo->footer->adapter_address[3],
 	   hostinfo->footer->adapter_address[4], hostinfo->footer->adapter_address[5]);
@@ -251,11 +257,10 @@ int print_hostinfo(struct in_addr addr, struct nb_host_info* hostinfo, char* sf)
 /* Print hostinfo in /etc/hosts or lmhosts format */
 /* If l is true adds #PRE to each line of output (for lmhosts) */
 
-int l_print_hostinfo(struct in_addr addr, struct nb_host_info* hostinfo, int l) {
+void l_print_hostinfo(struct in_addr addr, struct nb_host_info* hostinfo, int l) {
   int i;
   unsigned char service; /* 16th byte of NetBIOS name */
   char comp_name[16];
-  int is_server=0;
   int unique;
   int first_name=1;
 
@@ -299,7 +304,7 @@ int main(int argc, char *argv[]) {
   struct nb_host_info* hostinfo;
   fd_set* fdsr;
   fd_set* fdsw;
-  int sel, size;
+  int size;
   struct list* scanned;
   my_uint32_t rtt_base; /* Base time (seconds) for round trip time calculations */
   float rtt; /* most recent measured RTT, seconds */
@@ -386,27 +391,27 @@ int main(int argc, char *argv[]) {
 
   if(dump && lmhosts) {
     printf("Cannot be used with both dump (-d) and lmhosts (-l) options.\n");
-    usage;
+    usage();
   };
 
   if(dump && etc_hosts) {
     printf("Cannot be used with both dump (-d) and /etc/hosts (-e) options.\n");
-    usage;
+    usage();
   };
 
   if(verbose && lmhosts){
     printf("Cannot be used with both verbose (-v) and lmhosts (-l) options.\n");
-    usage;
+    usage();
   };
 
   if(verbose && etc_hosts){
     printf("Cannot be used with both verbose (-v) and /etc/hosts (-e) options.\n");
-    usage;
+    usage();
   };
 
   if(lmhosts && etc_hosts){
     printf("Cannot be used with both lmhosts (-l) and /etc/hosts (-e) options.\n");
-    usage;
+    usage();
   };
 
 	
@@ -476,8 +481,8 @@ int main(int argc, char *argv[]) {
   FD_SET(sock, fdsw);
 
   /* timeout is in milliseconds */
-  select_timeout.tv_sec = timeout / 1000;
-  select_timeout.tv_usec = (timeout % 1000) * 1000; /* Microseconds */
+  select_timeout.tv_sec = 60; /* Default 1 min to survive ARP timeouts */
+  select_timeout.tv_usec = 0; 
 
   addr_size = sizeof(struct sockaddr_in);
 

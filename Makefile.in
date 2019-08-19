@@ -11,22 +11,22 @@ exec_prefix = @exec_prefix@
 BINDIR      = @bindir@
 
 nbtscan: $(OBJECTS)
-	$(CC) $(CFLAGS) -o nbtscan $(OBJECTS) $(LIBS)
+	$(CC) $(CFLAGS) -o nbtscan $(OBJECTS) $(LIBS) $(LDFLAGS)
 
 install:
-	$(INSTALL) $(TARGET) $(BINDIR)/$(TARGET)
+	$(INSTALL) $(TARGET) $(DESTDIR)$(BINDIR)/$(TARGET)
 
 nbtscan.o: nbtscan.c statusq.h range.h list.h
-	$(CC) $(CFLAGS) $(DEFS) -c nbtscan.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(DEFS) -c nbtscan.c
 
 statusq.o: statusq.c statusq.h
-	$(CC) $(CFLAGS) $(DEFS) -c statusq.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(DEFS) -c statusq.c
 
 range.o: range.c range.h
-	$(CC) $(CFLAGS) $(DEFS) -c range.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(DEFS) -c range.c
 
 list.o: list.c list.h
-	$(CC) $(CFLAGS) $(DEFS) -c list.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(DEFS) -c list.c
 
 clean:
 	-rm $(OBJECTS) nbtscan

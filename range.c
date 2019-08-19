@@ -45,11 +45,16 @@ int is_range1(char* string, struct ip_range* range) {
 	if(separator=(char*)strchr(string,'/')) {
 		separator++;
 		mask=atoi(separator);
-		if(mask<0 || mask>32) return 0;
+		if(mask<=0 || mask>32) return 0;
 		strcpy(ip, string);
 		ip[abs(string-separator)-1]=0;
 		if((range->start_ip=inet_addr(ip)) == INADDR_NONE) return 0;
-		mask=((1<<mask)-1)<<(sizeof(mask)*8-mask);
+/*		mask=((1<<mask)-1)<<(sizeof(mask)*8-mask); */
+		if (mask == 32)
+			mask = ~0;
+		else
+			mask=((1<<mask)-1)<<(sizeof(mask)*8-mask);
+
 		range->start_ip=ntohl(range->start_ip); // We store ips in host byte order
 		range->start_ip &= mask;
 		range->end_ip = range->start_ip | ( ~ mask);

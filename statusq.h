@@ -1,6 +1,9 @@
 #if !defined STATUSQ_H
 #define STATUSQ_H
 
+#if defined HAVE_STDINT_H
+#include <stdint.h>
+#endif
 #include <sys/types.h>
 
 #define FL_REQUEST		0x8000

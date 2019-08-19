@@ -5,7 +5,10 @@ CFLAGS = @CFLAGS@
 OBJECTS=nbtscan.o statusq.o range.o list.o
 DEFS=@DEFS@
 TARGET=@TARGET@
-BINDIR=@BINDIR@
+
+prefix      = @prefix@
+exec_prefix = @exec_prefix@
+bindir      = @bindir@
 
 nbtscan: $(OBJECTS)
 	$(CC) $(CFLAGS) -o nbtscan $(OBJECTS) $(LIBS)

@@ -1,4 +1,14 @@
-Version 1.0.3 - February 2002</h3>
+Version 1.5 - May 2002
+
+- Fixed a bug in displaying of 15-character NetBIOS names (15th character wasn't displayed). Bug reported by Tom Kustner (Tom.Kustner@mortgage.wellsFargo.COM), Kenny Breck (KCBreck@NetZero.net) and Richard IJzermans (richard.ijzermans@lgphilips-displays.com)
+- Fixed a bug in interpreting netmask /32 and /0. Patch provided by Thomas Poindessous (thomas@poindessous.com) for Debian Linux
+- List of hosts to scan can now be read from stdin as well as from file. Suggested by Kevin Kadow (kadokev@msg.net)
+- Fixed a bug in timing. (nbtscan waited for two seconds after scanning not doing anything). Reported by Ceri Hopkins (ceri@sandc.demon.co.uk)
+- Nbtscan now works on Darwin. Patches provided by Mohammad A. Haque (mhaque@haque.net)
+- timeout option -t is now in milliseconds, not seconds
+- Fixed some Solaris portability problems. Patches provided by Petter Reinholdtsen (pere@hungry.com)
+
+Version 1.0.3 - February 2002
 
 - NBTscan now returns meaningful exit code (patch by James Troup for Debian Linux)
 - Added /etc/hosts and lmhosts format output (suggested by Anahuac de Paula Gil and Sigmund Baginov)

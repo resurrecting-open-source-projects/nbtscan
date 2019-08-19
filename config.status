@@ -131,7 +131,7 @@ do
     echo "$ac_cs_version"; exit 0 ;;
   --he | --h)
     # Conflict between --help and --header
-    { { echo "$as_me:3337: error: ambiguous option: $1
+    { { echo "$as_me:3385: error: ambiguous option: $1
 Try \`$0 --help' for more information." >&5
 echo "$as_me: error: ambiguous option: $1
 Try \`$0 --help' for more information." >&2;}
@@ -150,7 +150,7 @@ Try \`$0 --help' for more information." >&2;}
     ac_need_defaults=false;;
 
   # This is an error.
-  -*) { { echo "$as_me:3356: error: unrecognized option: $1
+  -*) { { echo "$as_me:3404: error: unrecognized option: $1
 Try \`$0 --help' for more information." >&5
 echo "$as_me: error: unrecognized option: $1
 Try \`$0 --help' for more information." >&2;}
@@ -183,7 +183,7 @@ do
   case "$ac_config_target" in
   # Handling of arguments.
   "Makefile" ) CONFIG_FILES="$CONFIG_FILES Makefile" ;;
-  *) { { echo "$as_me:3392: error: invalid argument: $ac_config_target" >&5
+  *) { { echo "$as_me:3440: error: invalid argument: $ac_config_target" >&5
 echo "$as_me: error: invalid argument: $ac_config_target" >&2;}
    { (exit 1); exit 1; }; };;
   esac
@@ -234,7 +234,7 @@ s,@SHELL@,/bin/sh,;t t
 s,@exec_prefix@,${prefix},;t t
 s,@prefix@,/usr/local,;t t
 s,@program_transform_name@,s,x,x,,;t t
-s,@bindir@,${exec_prefix}/bin,;t t
+s,@bindir@,NONE/bin,;t t
 s,@sbindir@,${exec_prefix}/sbin,;t t
 s,@libexecdir@,${exec_prefix}/libexec,;t t
 s,@datadir@,${prefix}/share,;t t
@@ -254,11 +254,11 @@ s,@PACKAGE_BUGREPORT@,,;t t
 s,@build_alias@,,;t t
 s,@host_alias@,,;t t
 s,@target_alias@,,;t t
-s,@ECHO_C@,\c,;t t
-s,@ECHO_N@,,;t t
+s,@ECHO_C@,,;t t
+s,@ECHO_N@,-n,;t t
 s,@ECHO_T@,,;t t
 s,@PATH_SEPARATOR@,:,;t t
-s,@DEFS@,-DSTDC_HEADERS=1 -DHAVE_SYS_TIME_H=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_UNISTD_H=1 -Dmy_uint8_t=uint8_t -Dmy_uint16_t=uint16_t -Dmy_uint32_t=uint32_t -DTIME_WITH_SYS_TIME=1 -DHAVE_SNPRINTF=1 -DUNIX=1 ,;t t
+s,@DEFS@,-DSTDC_HEADERS=1 -DHAVE_SYS_TIME_H=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_MEMORY_H=1 -DHAVE_STRINGS_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_UNISTD_H=1 -Dmy_uint8_t=uint8_t -Dmy_uint16_t=uint16_t -Dmy_uint32_t=uint32_t -DTIME_WITH_SYS_TIME=1 -DHAVE_SNPRINTF=1 -DHAVE_INET_ATON=1 -DHAVE_SOCKET=1 -DUNIX=1 ,;t t
 s,@LIBS@,,;t t
 s,@CC@,gcc,;t t
 s,@CFLAGS@,-g -O2,;t t
@@ -271,20 +271,19 @@ s,@INSTALL_PROGRAM@,${INSTALL},;t t
 s,@INSTALL_SCRIPT@,${INSTALL},;t t
 s,@INSTALL_DATA@,${INSTALL} -m 644,;t t
 s,@CPP@,gcc -E,;t t
-s,@build@,i386-unknown-openbsd2.9,;t t
+s,@build@,i386-unknown-freebsd4.5,;t t
 s,@build_cpu@,i386,;t t
 s,@build_vendor@,unknown,;t t
-s,@build_os@,openbsd2.9,;t t
-s,@host@,i386-unknown-openbsd2.9,;t t
+s,@build_os@,freebsd4.5,;t t
+s,@host@,i386-unknown-freebsd4.5,;t t
 s,@host_cpu@,i386,;t t
 s,@host_vendor@,unknown,;t t
-s,@host_os@,openbsd2.9,;t t
-s,@target@,i386-unknown-openbsd2.9,;t t
+s,@host_os@,freebsd4.5,;t t
+s,@target@,i386-unknown-freebsd4.5,;t t
 s,@target_cpu@,i386,;t t
 s,@target_vendor@,unknown,;t t
-s,@target_os@,openbsd2.9,;t t
+s,@target_os@,freebsd4.5,;t t
 s,@TARGET@,nbtscan,;t t
-s,@BINDIR@,NONE/bin,;t t
 CEOF
 
   # Split the substitutions into bite-sized pieces for seds with
@@ -394,7 +393,7 @@ done; }
   esac
 
   if test x"$ac_file" != x-; then
-    { echo "$as_me:3611: creating $ac_file" >&5
+    { echo "$as_me:3658: creating $ac_file" >&5
 echo "$as_me: creating $ac_file" >&6;}
     rm -f "$ac_file"
   fi
@@ -412,7 +411,7 @@ echo "$as_me: creating $ac_file" >&6;}
       -) echo $tmp/stdin ;;
       [\\/$]*)
          # Absolute (can't be DOS-style, as IFS=:)
-         test -f "$f" || { { echo "$as_me:3629: error: cannot find input file: $f" >&5
+         test -f "$f" || { { echo "$as_me:3676: error: cannot find input file: $f" >&5
 echo "$as_me: error: cannot find input file: $f" >&2;}
    { (exit 1); exit 1; }; }
          echo $f;;
@@ -425,7 +424,7 @@ echo "$as_me: error: cannot find input file: $f" >&2;}
            echo $srcdir/$f
          else
            # /dev/null tree
-           { { echo "$as_me:3642: error: cannot find input file: $f" >&5
+           { { echo "$as_me:3689: error: cannot find input file: $f" >&5
 echo "$as_me: error: cannot find input file: $f" >&2;}
    { (exit 1); exit 1; }; }
          fi;;

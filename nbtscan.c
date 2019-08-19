@@ -5,6 +5,9 @@
 #include <stdlib.h>
 #include <sys/time.h>
 #include <string.h>
+#if HAVE_STDINT_H
+#include <stdint.h>
+#endif
 #include "statusq.h"
 #include "range.h"
 #include "list.h"
@@ -27,8 +30,8 @@ void usage(void) {
   printf("\t-e\t\tFormat output in /etc/hosts format.\n");
   printf("\t-l\t\tFormat output in lmhosts format.\n");
   printf("\t\t\tCannot be used with -v, -s or -h options.\n");
-  printf("\t-t timeout\twait timeout seconds for response.\n");
-  printf("\t\t\tDefault 1.\n");
+  printf("\t-t timeout\twait timeout milliseconds for response.\n");
+  printf("\t\t\tDefault 1000.\n");
   printf("\t-b bandwidth\tOutput throttling. Slow down output\n");
   printf("\t\t\tso that it uses no more that bandwidth bps.\n");
   printf("\t\t\tUseful on slow links, so that ougoing queries\n");
@@ -42,7 +45,8 @@ void usage(void) {
   printf("\t-h\t\tPrint human-readable names for services.\n");
   printf("\t\t\tCan only be used with -v option.\n");
   printf("\t-m retransmits\tNumber of retransmits. Default 0.\n");
-  printf("\t-f filename\tTake IP addresses to scan from file filename\n");
+  printf("\t-f filename\tTake IP addresses to scan from file filename.\n");
+  printf("\t\t\t-f - makes nbtscan take IP addresses from stdin.\n");
   printf("\t<scan_range>\twhat to scan. Can either be single IP\n");
   printf("\t\t\tlike 192.168.1.1 or\n");
   printf("\t\t\trange of addresses in one of two forms: \n");
@@ -107,7 +111,7 @@ int d_print_hostinfo(struct in_addr addr, const struct nb_host_info* hostinfo) {
     for(i=0; i< hostinfo->header->number_of_names; i++) {
       service = hostinfo->names[i].ascii_name[15];
       strncpy(name, hostinfo->names[i].ascii_name, 15);
-      name[15]=0; 
+      name[16]=0; 
       printf("%-17s Service: 0x%02x Flags: 0x%04x\n", name, service, hostinfo->names[i].rr_flags);
     }
   };
@@ -160,7 +164,7 @@ int v_print_hostinfo(struct in_addr addr, const struct nb_host_info* hostinfo, c
     for(i=0; i< hostinfo->header->number_of_names; i++) {
       service = hostinfo->names[i].ascii_name[15];
       strncpy(name, hostinfo->names[i].ascii_name, 15);
-      name[15]=0;
+      name[16]=0;
       unique = !(hostinfo->names[i].rr_flags & 0x0080);
       if(sf) {
 	printf("%s%s%s%s", inet_ntoa(addr), sf, name, sf);
@@ -210,14 +214,16 @@ int print_hostinfo(struct in_addr addr, struct nb_host_info* hostinfo, char* sf)
       unique = ! (hostinfo->names[i].rr_flags & 0x0080);
       if(service == 0  && unique && first_name) {
 				/* Unique name, workstation service - this is computer name */ 
-	strncpy(comp_name, hostinfo->names[i].ascii_name, 14);
+	strncpy(comp_name, hostinfo->names[i].ascii_name, 15);
+	comp_name[15] = 0;
 	first_name = 0;
       };
       if(service == 0x20 && unique) {
 	is_server=1;
       }
       if(service == 0x03 && unique) {
-	strncpy(user_name, hostinfo->names[i].ascii_name, 14);
+	strncpy(user_name, hostinfo->names[i].ascii_name, 15);
+	user_name[15]=0;
       };
     };
   };
@@ -259,7 +265,8 @@ int l_print_hostinfo(struct in_addr addr, struct nb_host_info* hostinfo, int l) 
       unique = ! (hostinfo->names[i].rr_flags & 0x0080);
       if(service == 0  && unique && first_name) {
 				/* Unique name, workstation service - this is computer name */ 
-	strncpy(comp_name, hostinfo->names[i].ascii_name, 14);
+	strncpy(comp_name, hostinfo->names[i].ascii_name, 15);
+	comp_name[15]=0;
 	first_name = 0;
       };
     };
@@ -273,7 +280,7 @@ int l_print_hostinfo(struct in_addr addr, struct nb_host_info* hostinfo, int l) 
 #define BUFFSIZE 1024
 
 int main(int argc, char *argv[]) {
-  int timeout=1, verbose=0, use137=0, ch, dump=0, bandwidth=0, send_ok=0, hr=0, etc_hosts=0, lmhosts=0;
+  int timeout=1000, verbose=0, use137=0, ch, dump=0, bandwidth=0, send_ok=0, hr=0, etc_hosts=0, lmhosts=0;
   extern char *optarg;
   extern int optind;
   char* target_string;
@@ -412,7 +419,13 @@ int main(int argc, char *argv[]) {
   };
 
   if(filename) {
-    targetlist=fopen(filename,"r");
+    if(strcmp(filename, "-") == 0) { /* Get IP addresses from stdin */
+      targetlist = stdin; 
+      target_string = "STDIN";
+    } else {
+      targetlist=fopen(filename,"r");
+      target_string = filename;
+    };
     if(!targetlist) {
       snprintf(errmsg, 80, "Cannot open file %s", filename);
       err_die(errmsg, quiet);
@@ -460,9 +473,10 @@ int main(int argc, char *argv[]) {
   if(!fdsw) err_die("Malloc failed", quiet);
   FD_ZERO(fdsw);
   FD_SET(sock, fdsw);
-        
-  select_timeout.tv_sec = timeout;
-  select_timeout.tv_usec = 0;
+
+  /* timeout is in milliseconds */
+  select_timeout.tv_sec = timeout / 1000;
+  select_timeout.tv_usec = (timeout % 1000) * 1000; /* Microseconds */
 
   addr_size = sizeof(struct sockaddr_in);
 
@@ -551,6 +565,7 @@ int main(int argc, char *argv[]) {
 	if(targetlist) {
 	  if(fgets(str, 80, targetlist)) {
 	    if(!inet_aton(str, next_in_addr)) {
+            /* if(!inet_pton(AF_INET, str, next_in_addr)) { */
 	      fprintf(stderr,"%s - bad IP address\n", str);
 	    } else {
 	      if(!in_list(scanned, ntohl(next_in_addr->s_addr))) 
@@ -560,8 +575,9 @@ int main(int argc, char *argv[]) {
 	    if(feof(targetlist)) {
 	      more_to_send=0; 
 	      FD_ZERO(fdsw);
-	      select_timeout.tv_sec=timeout; 
-	      select_timeout.tv_usec=0;
+              /* timeout is in milliseconds */
+	      select_timeout.tv_sec = timeout / 1000;
+              select_timeout.tv_usec = (timeout % 1000) * 1000; /* Microseconds */
 	      continue;
 	    } else {
 	      snprintf(errmsg, 80, "Read failed from file %s", filename);
@@ -577,8 +593,9 @@ int main(int argc, char *argv[]) {
 	} else { /* No more queries to send */
 	  more_to_send=0; 
 	  FD_ZERO(fdsw);
-	  select_timeout.tv_sec=timeout; 
-	  select_timeout.tv_usec=0;
+          /* timeout is in milliseconds */
+          select_timeout.tv_sec = timeout / 1000;
+          select_timeout.tv_usec = (timeout % 1000) * 1000; /* Microseconds */
 	  continue;
 	};
       };	
@@ -587,6 +604,9 @@ int main(int argc, char *argv[]) {
 	FD_SET(sock, fdsw);
       };
     };
+
+    if (i>=retransmits) break; /* If we are not going to retransmit
+				 we can finish right now without waiting */
 
     rto = (srtt + 4 * rttvar) * (i+1);
 

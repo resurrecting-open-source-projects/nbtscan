@@ -1,4 +1,4 @@
-NBTscan version 1.0.3. Copyright (C) 1999-2002 Alla Bezroutchko
+NBTscan version 1.5. Copyright (C) 1999-2002 Alla Bezroutchko
 
 NBTscan is a program for scanning IP networks for NetBIOS name
 information. It sends NetBIOS status query to each address in
@@ -35,7 +35,8 @@ and RedHat Linux 7.1. It should also compile and run on Solaris
 and other Linuxes as well.  Steve Coleman 
 <Steve.Coleman@jhuapl.edu> ported NBTscan to Solaris, HP-UX and 
 OSF/1 and fixed several bugs. He reports that NBTscan also runs 
-on IRIX/SGI with minor problems.
+on IRIX/SGI with minor problems. Mohammad A. Haque 
+<mhaque@haque.net> ported nbtscan to Darwin.
 
 Windows:
 
@@ -67,7 +68,7 @@ nbtscan [-v] [-d] [-e] [-l] [-t timeout] [-b bandwidth] [-r] [-q] [-s separator]
         -e              Format output in /etc/hosts format.
         -l              Format output in lmhosts format.
                         Cannot be used with -v, -s or -h options.
-        -t timeout      wait timeout seconds for response.
+        -t timeout      wait timeout imilliseconds for response.
                         Default 1.
         -b bandwidth    Output throttling. Slow down output
                         so that it uses no more that bandwidth bps.
@@ -78,12 +79,14 @@ nbtscan [-v] [-d] [-e] [-l] [-t timeout] [-b bandwidth] [-r] [-q] [-s separator]
                         You need to be root to use this option on Unix.
         -q              Suppress banners and error messages,
         -s separator    Script-friendly output. Don't print
-                        column and record headers, separate fields with separator.
+                        column and record headers, separate fields 
+			with separator.
         -h              Print human-readable names for services.
 
                         Can only be used with -v option.
         -m retransmits  Number of retransmits. Default 0.
         -f filename     Take IP addresses to scan from file filename
+			-f - makes nbtscan take IP addresses from stdin.
         <scan_range>    what to scan. Can either be single IP
                         like 192.168.1.1 or
                         range of addresses in one of two forms: 
@@ -115,4 +118,3 @@ Windows (it is already taken by Windows itself).
 
 Report bugs to alla@inetcat.org (that's me). I cannot promise to
 do anything but I might well want fix it. Remember: no warranty.
-At least it's worth what you payed for it.

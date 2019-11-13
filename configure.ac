@@ -30,17 +30,17 @@ AC_HEADER_TIME
 dnl Checks for library functions.
 AC_CHECK_FUNCS(snprintf inet_aton socket)
 
-AC_CANONICAL_SYSTEM
+#AC_CANONICAL_TARGET
 
-if test "$target_os" = cygwin; then
-AC_DEFINE(WINDOWS)
-BINDIR=c:
-TARGET=nbtscan.exe
-else
-AC_DEFINE(UNIX)
-BINDIR=$prefix/bin
-TARGET=nbtscan
-fi
+#if test "$target_os" = cygwin; then
+#AC_DEFINE(WINDOWS)
+#BINDIR=c:
+#TARGET=nbtscan.exe
+#else
+#AC_DEFINE(UNIX)
+#BINDIR=$prefix/bin
+#TARGET=nbtscan
+#fi
 
 AC_SUBST(TARGET)
 AC_SUBST(BINDIR)

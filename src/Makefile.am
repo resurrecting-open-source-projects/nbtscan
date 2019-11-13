@@ -10,6 +10,8 @@ prefix      = @prefix@
 exec_prefix = @exec_prefix@
 BINDIR      = @bindir@
 
+all: nbtscan
+
 nbtscan: $(OBJECTS)
 	$(CC) $(CFLAGS) -o nbtscan $(OBJECTS) $(LIBS) $(LDFLAGS)
 
@@ -30,6 +32,3 @@ list.o: list.c list.h
 
 clean:
 	-rm $(OBJECTS) nbtscan
-
-distclean: clean
-	-rm config.cache config.log config.status Makefile

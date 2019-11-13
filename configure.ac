@@ -1,5 +1,8 @@
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT(statusq.c)
+AC_PREREQ(2.61)
+AC_INIT([nbtscan],[1.6],[https://github.com/resurrecting-open-source-projects/nbtscan/issues])
+AM_INIT_AUTOMAKE
+AC_CONFIG_SRCDIR([src/statusq.c])
 
 dnl Checks for programs.
 AC_PROG_CC
@@ -42,4 +45,5 @@ fi
 AC_SUBST(TARGET)
 AC_SUBST(BINDIR)
 
-AC_OUTPUT(Makefile)
+AC_CONFIG_FILES([Makefile src/Makefile])
+AC_OUTPUT

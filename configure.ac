@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.61)
-AC_INIT([nbtscan],[1.6],[https://github.com/resurrecting-open-source-projects/nbtscan/issues])
+AC_INIT([nbtscan], [1.6], [https://github.com/resurrecting-open-source-projects/nbtscan/issues])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([src/statusq.c])
 
@@ -42,8 +42,8 @@ AC_CHECK_FUNCS(snprintf inet_aton socket)
 #TARGET=nbtscan
 #fi
 
-AC_SUBST(TARGET)
-AC_SUBST(BINDIR)
+#AC_SUBST(TARGET)
+#AC_SUBST(BINDIR)
 
 AC_CONFIG_FILES([Makefile src/Makefile])
 AC_OUTPUT

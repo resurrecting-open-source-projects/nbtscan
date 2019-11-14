@@ -1,5 +1,5 @@
 # Copyright 1999-2003 Alla Bezroutchko <alla@inetcat.org>
-# Copyright 2019      Joao Eriberto Mota Filho <eriberto@eriberto.pro.br>
+# Copyright 2018-2019 Joao Eriberto Mota Filho <eriberto@eriberto.pro.br>
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License

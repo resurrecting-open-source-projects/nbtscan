@@ -4,7 +4,8 @@
    Unix SMB/Netbios implementation
    Version 1.9
    Main SMB server routine
-   Copyright (C) Andrew Tridgell 1992-199
+   Copyright 1992-1995 Andrew Tridgell
+   Copyright 2004      Jochen Friedrich <jochen@scram.de>
 
    This program is free software; you can redistribute it and/or modif
    it under the terms of the GNU General Public License as published b

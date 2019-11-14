@@ -1,4 +1,7 @@
 # Copyright 1999-2003 Alla Bezroutchko <alla@inetcat.org>
+# Copyright 2004      Jochen Friedrich <jochen@scram.de>
+# Copyright 2008      Walter "Wallie" Jakob Doekes <walter@wjd.nu>
+# Copyright 2015      Johan Eidenvall <bugreport@eidenvall.se>
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License

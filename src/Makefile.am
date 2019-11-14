@@ -1,7 +1,8 @@
 bin_PROGRAMS = nbtscan
+
 OBJECTS=nbtscan.o statusq.o range.o list.o
 
-nbtscan: $(OBJECTS)
+nbtscan$(EXEEXT): $(OBJECTS)
 	$(CC) $(CFLAGS) -o nbtscan $(OBJECTS) $(LIBS) $(LDFLAGS)
 
 nbtscan.o: nbtscan.c statusq.h range.h list.h

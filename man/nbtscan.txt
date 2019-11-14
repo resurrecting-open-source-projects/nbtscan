@@ -1,5 +1,5 @@
 NAME
-  nbtscan -- program for scanning networks for NetBIOS name information
+  nbtscan - scan networks for NetBIOS name information
 
 SYNOPSIS
   nbtscan [-v] [-d] [-e] [-l] [-t timeout] [-b bandwidth] [-r] [-q]
@@ -154,7 +154,7 @@ FAQ
   R: Because that's what Samba send in response to the query. Nbtscan just prints out what it gets.
 
 AUTHOR
-  NBTscan was created by Andrew Tridgell and Alla Bezroutchko <alla@inetcat.org, alla@sovlink.ru>.
+  NBTscan was created by Alla Bezroutchko <alla@inetcat.org>.
 
   This manual page was written for the first time by Ryszard Lach <rla@debian.org> and rewritten, from scratch, by
   Joao Eriberto Mota Filho <eriberto@debian.org> for the Debian GNU/Linux system (but may be used by others).

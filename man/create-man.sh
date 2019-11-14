@@ -5,9 +5,9 @@
 #
 # This script can be used under BSD-3-Clause license.
 
-T2M_DATE="02 Dec 2018"
+T2M_DATE="14 Nov 2019"
 T2M_NAME=nbtscan
-T2M_VERSION=1.5.1
+T2M_VERSION=1.6
 T2M_LEVEL=1
 T2M_DESC="scan networks searching for NetBIOS information"
 

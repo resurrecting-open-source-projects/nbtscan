@@ -1,3 +1,5 @@
+Version 1.6 - November 2019
+
 Version 1.5.1 - June 2003
 
 - Fixed segmentation fault when using -f option (noticed by Brian Lovrin)

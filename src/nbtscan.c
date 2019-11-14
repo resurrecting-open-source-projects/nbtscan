@@ -1,3 +1,4 @@
+/*
 # Copyright 1999-2003 Alla Bezroutchko <alla@inetcat.org>
 # Copyright 2004      Jochen Friedrich <jochen@scram.de>
 # Copyright 2008      Walter "Wallie" Jakob Doekes <walter@wjd.nu>
@@ -16,6 +17,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
 
 #include <sys/types.h>
 #include <sys/socket.h>

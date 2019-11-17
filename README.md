@@ -4,7 +4,7 @@
 
 ## Help this project ##
 
-nbtscan needs your help. **If you are a programmer** and if you wants to help a
+nbtscan needs your help. **If you are a programmer** and if you want to help a
 nice project, this is your opportunity.
 
 nbtscan was imported from some tarballs (the original homepage[1] and

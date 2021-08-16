@@ -1,4 +1,4 @@
-# Copyright 2019 Joao Eriberto Mota Filho <eriberto@eriberto.pro.br>
+# Copyright 2019-2021 Joao Eriberto Mota Filho <eriberto@eriberto.pro.br>
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -21,6 +21,5 @@ EXTRA_DIST= man/nbtscan.1
 
 distclean-local:
 	-rm -rf autom4te.cache
-	-rm aclocal.m4 compile config.log config.status \
-            configure depcomp INSTALL install-sh Makefile Makefile.in \
-            missing src/Makefile.in src/*.o src/nbtscan
+	-rm aclocal.m4 compile config.* configure depcomp INSTALL install-sh \
+            Makefile Makefile.in missing src/Makefile.in

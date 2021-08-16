@@ -17,7 +17,7 @@
 
 dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ([2.69])
-AC_INIT([nbtscan],[1.6],[https://github.com/resurrecting-open-source-projects/nbtscan/issues])
+AC_INIT([nbtscan],[1.7],[https://github.com/resurrecting-open-source-projects/nbtscan/issues])
 AC_CANONICAL_TARGET
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([src/statusq.c])

@@ -1,4 +1,18 @@
-Version 1.6 - November 2019
+Version 1.7 - 16 Aug 2021
+
+    [ Joao Eriberto Mota Filho ]
+
+ * Added a test in nbtscan.c and statusq.c before to include sys/time.h.
+ * Fixed distclean in Makefile.am.
+ * Ran astyle command to reorganize the source code.
+ * Simplified src/Makefile.am.
+ * Updated configure.ac to make it compliant with autotools >= 2.70. Bumped
+   required version to 2.69.
+ * Updated man/create-man.sh to most recent version from txt2man Debian
+   package.
+ * Updated manpage.
+
+Version 1.6 - 14 Nov 2019
 
     [ Joao Eriberto Mota Filho ]
 

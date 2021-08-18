@@ -1,3 +1,10 @@
+Version 1.7.1 - 17 Aug 2021
+
+    [ Joao Eriberto Mota Filho ]
+
+ * Revert the test to include sys/time.h. This test is no longer needed in
+   modern systems.
+
 Version 1.7 - 16 Aug 2021
 
     [ Joao Eriberto Mota Filho ]

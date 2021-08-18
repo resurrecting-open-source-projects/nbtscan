@@ -45,7 +45,7 @@ int in_list(struct list* lst, unsigned long content);
 void send_query(int sock, struct in_addr dest_addr, my_uint32_t rtt_base);
 
 void print_banner(void) {
-    printf("\nNBTscan version 1.7.\n");
+    printf("\nNBTscan version 1.7.1.\n");
     printf("This is a free software and it comes with absolutely no warranty.\n");
     printf("You can use, distribute and modify it under terms of GNU GPL 2+.\n\n");
 }

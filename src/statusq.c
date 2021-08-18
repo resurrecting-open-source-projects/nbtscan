@@ -6,7 +6,6 @@
    Main SMB server routine
    Copyright 1992-1995 Andrew Tridgell
    Copyright 2004      Jochen Friedrich <jochen@scram.de>
-   Copyright 2021      Joao Eriberto Mota Filho <eriberto@eriberto.pro.br>
 
    This program is free software; you can redistribute it and/or modif
    it under the terms of the GNU General Public License as published b
@@ -28,12 +27,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <stdlib.h>
-
-#if HAVE_SYS_TIME_H
 #include <sys/time.h>
-#endif
-#include <time.h>
-
 #include "statusq.h"
 #include <string.h>
 #include <stdio.h>

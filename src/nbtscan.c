@@ -3,7 +3,6 @@
 # Copyright 2004      Jochen Friedrich <jochen@scram.de>
 # Copyright 2008      Walter "Wallie" Jakob Doekes <walter@wjd.nu>
 # Copyright 2015      Johan Eidenvall <bugreport@eidenvall.se>
-# Copyright 2021      Joao Eriberto Mota Filho <eriberto@eriberto.pro.br>
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -25,19 +24,13 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <stdlib.h>
-
-#if HAVE_SYS_TIME_H
 #include <sys/time.h>
-#endif
-
 #include <string.h>
 #include <unistd.h>
 #include <getopt.h>
-
 #if HAVE_STDINT_H
 #include <stdint.h>
 #endif
-
 #include "statusq.h"
 #include "range.h"
 #include "list.h"

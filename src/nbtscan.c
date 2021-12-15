@@ -55,63 +55,63 @@ send_query ( int sock, struct in_addr dest_addr, my_uint32_t rtt_base );
 void
 print_banner ( void )
 {
-  printf ( "\nNBTscan version 1.7.1.\n" );
-  printf ( "This is a free software and it comes with absolutely no "
-           "warranty.\n" );
-  printf ( "You can use, distribute and modify it under terms of GNU GPL "
-           "2+.\n\n" );
+  puts ( "\nNBTscan version 1.7.1.\n"
+         "This is a free software and it comes with absolutely no "
+         "warranty.\n"
+         "You can use, distribute and modify it under terms of GNU GPL "
+         "2+.\n\n" );
 }
 
 void
 usage ( void )
 {
-  printf ( "Usage:\nnbtscan [-v] [-d] [-e] [-l] [-t timeout] [-b bandwidth] "
-           "[-r] [-q] [-s separator] [-m retransmits] (-f "
-           "filename)|(<scan_range>) \n" );
-  printf ( "\t-v\t\tverbose output. Print all names received\n" );
-  printf ( "\t\t\tfrom each host\n" );
-  printf ( "\t-d\t\tdump packets. Print whole packet contents.\n" );
-  printf ( "\t-e\t\tFormat output in /etc/hosts format.\n" );
-  printf ( "\t-l\t\tFormat output in lmhosts format.\n" );
-  printf ( "\t\t\tCannot be used with -v, -s or -h options.\n" );
-  printf ( "\t-t timeout\twait timeout milliseconds for response.\n" );
-  printf ( "\t\t\tDefault 1000.\n" );
-  printf ( "\t-b bandwidth\tOutput throttling. Slow down output\n" );
-  printf ( "\t\t\tso that it uses no more that bandwidth bps.\n" );
-  printf ( "\t\t\tUseful on slow links, so that ougoing queries\n" );
-  printf ( "\t\t\tdon't get dropped.\n" );
-  printf ( "\t-r\t\tuse local port 137 for scans. Win95 boxes\n" );
-  printf ( "\t\t\trespond to this only.\n" );
-  printf ( "\t\t\tYou need to be root to use this option on Unix.\n" );
-  printf ( "\t-q\t\tSuppress banners and error messages,\n" );
-  printf ( "\t-s separator\tScript-friendly output. Don't print\n" );
-  printf ( "\t\t\tcolumn and record headers, separate fields with "
-           "separator.\n" );
-  printf ( "\t-h\t\tPrint human-readable names for services.\n" );
-  printf ( "\t\t\tCan only be used with -v option.\n" );
-  printf ( "\t-m retransmits\tNumber of retransmits. Default 0.\n" );
-  printf ( "\t-f filename\tTake IP addresses to scan from file filename.\n" );
-  printf ( "\t\t\t-f - makes nbtscan take IP addresses from stdin.\n" );
-  printf ( "\t<scan_range>\twhat to scan. Can either be single IP\n" );
-  printf ( "\t\t\tlike 192.168.1.1 or\n" );
-  printf ( "\t\t\trange of addresses in one of two forms: \n" );
-  printf ( "\t\t\txxx.xxx.xxx.xxx/xx or xxx.xxx.xxx.xxx-xxx.\n" );
-  printf ( "Examples:\n" );
-  printf ( "\tnbtscan -r 192.168.1.0/24\n" );
-  printf ( "\t\tScans the whole C-class network.\n" );
-  printf ( "\tnbtscan 192.168.1.25-137\n" );
-  printf ( "\t\tScans a range from 192.168.1.25 to 192.168.1.137\n" );
-  printf ( "\tnbtscan -v -s : 192.168.1.0/24\n" );
-  printf ( "\t\tScans C-class network. Prints results in script-friendly\n" );
-  printf ( "\t\tformat using colon as field separator.\n" );
-  printf ( "\t\tProduces output like that:\n" );
-  printf ( "\t\t192.168.0.1:NT_SERVER:00U\n" );
-  printf ( "\t\t192.168.0.1:MY_DOMAIN:00G\n" );
-  printf ( "\t\t192.168.0.1:ADMINISTRATOR:03U\n" );
-  printf ( "\t\t192.168.0.2:OTHER_BOX:00U\n" );
-  printf ( "\t\t...\n" );
-  printf ( "\tnbtscan -f iplist\n" );
-  printf ( "\t\tScans IP addresses specified in file iplist.\n" );
+  puts ( "Usage:\nnbtscan [-v] [-d] [-e] [-l] [-t timeout] [-b bandwidth] "
+         "[-r] [-q] [-s separator] [-m retransmits] (-f "
+         "filename)|(<scan_range>) \n"
+         "\t-v\t\tverbose output. Print all names received\n"
+         "\t\t\tfrom each host\n"
+         "\t-d\t\tdump packets. Print whole packet contents.\n"
+         "\t-e\t\tFormat output in /etc/hosts format.\n"
+         "\t-l\t\tFormat output in lmhosts format.\n"
+         "\t\t\tCannot be used with -v, -s or -h options.\n"
+         "\t-t timeout\twait timeout milliseconds for response.\n"
+         "\t\t\tDefault 1000.\n"
+         "\t-b bandwidth\tOutput throttling. Slow down output\n"
+         "\t\t\tso that it uses no more that bandwidth bps.\n"
+         "\t\t\tUseful on slow links, so that ougoing queries\n"
+         "\t\t\tdon't get dropped.\n"
+         "\t-r\t\tuse local port 137 for scans. Win95 boxes\n"
+         "\t\t\trespond to this only.\n"
+         "\t\t\tYou need to be root to use this option on Unix.\n"
+         "\t-q\t\tSuppress banners and error messages,\n"
+         "\t-s separator\tScript-friendly output. Don't print\n"
+         "\t\t\tcolumn and record headers, separate fields with "
+         "separator.\n"
+         "\t-h\t\tPrint human-readable names for services.\n"
+         "\t\t\tCan only be used with -v option.\n"
+         "\t-m retransmits\tNumber of retransmits. Default 0.\n"
+         "\t-f filename\tTake IP addresses to scan from file filename.\n"
+         "\t\t\t-f - makes nbtscan take IP addresses from stdin.\n"
+         "\t<scan_range>\twhat to scan. Can either be single IP\n"
+         "\t\t\tlike 192.168.1.1 or\n"
+         "\t\t\trange of addresses in one of two forms: \n"
+         "\t\t\txxx.xxx.xxx.xxx/xx or xxx.xxx.xxx.xxx-xxx.\n"
+         "Examples:\n"
+         "\tnbtscan -r 192.168.1.0/24\n"
+         "\t\tScans the whole C-class network.\n"
+         "\tnbtscan 192.168.1.25-137\n"
+         "\t\tScans a range from 192.168.1.25 to 192.168.1.137\n"
+         "\tnbtscan -v -s : 192.168.1.0/24\n"
+         "\t\tScans C-class network. Prints results in script-friendly\n"
+         "\t\tformat using colon as field separator.\n"
+         "\t\tProduces output like that:\n"
+         "\t\t192.168.0.1:NT_SERVER:00U\n"
+         "\t\t192.168.0.1:MY_DOMAIN:00G\n"
+         "\t\t192.168.0.1:ADMINISTRATOR:03U\n"
+         "\t\t192.168.0.2:OTHER_BOX:00U\n"
+         "\t\t...\n"
+         "\tnbtscan -f iplist\n"
+         "\t\tScans IP addresses specified in file iplist." );
   exit ( 2 );
 }
 
@@ -136,8 +136,8 @@ print_header ( void )
            "Server",
            "User",
            "MAC address" );
-  printf ( "-------------------------------------------------------------------"
-           "-----------\n" );
+  puts ( "-------------------------------------------------------------------"
+           "-----------" );
 }
 
 void

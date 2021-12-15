@@ -94,7 +94,7 @@ name_mangle ( char *In, char *Out, char name_type )
         }
     }
   return ( strlen ( Out ) );
-}; /* name_mangle */
+} /* name_mangle */
 /* end of code from Samba */
 
 void
@@ -137,8 +137,8 @@ send_query ( int sock, struct in_addr dest_addr, my_uint32_t rtt_base )
     {
       snprintf ( errmsg, 80, "%s\tSendto failed", inet_ntoa ( dest_addr ) );
       err_print ( errmsg, quiet );
-    };
-};
+    }
+}
 
 my_uint32_t
 get32 ( void *data )
@@ -151,7 +151,7 @@ get32 ( void *data )
 
   memcpy ( x.bytes, data, 4 );
   return ( ntohl ( x.all ) );
-};
+}
 
 my_uint16_t
 get16 ( void *data )
@@ -164,7 +164,7 @@ get16 ( void *data )
 
   memcpy ( x.bytes, data, 2 );
   return ( ntohs ( x.all ) );
-};
+}
 
 struct nb_host_info *
 parse_response ( char *buff, int buffsize )
@@ -399,7 +399,7 @@ parse_response ( char *buff, int buffsize )
 broken_packet:
   hostinfo->is_broken = offset;
   return hostinfo;
-};
+}
 
 nb_service_t services[] = {
         { "__MSBROWSE__", 0x01, 0, "Master Browser" },
@@ -455,8 +455,8 @@ getnbservicename ( my_uint8_t service, int unique, char *name )
            service == services[i].service_number &&
            unique == services[i].unique )
         return services[i].service_name;
-    };
+    }
 
   snprintf ( unknown, 100, "Unknown service (code %x)", service );
   return ( unknown );
-};
+}

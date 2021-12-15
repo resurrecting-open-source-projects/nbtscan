@@ -42,10 +42,13 @@ int quiet = 0;
 
 char *
 getnbservicename ( my_uint8_t service, int unique, char *name );
+
 struct nb_host_info *
 parse_response ( char *buff, int buffsize );
+
 int
 in_list ( struct list *lst, unsigned long content );
+
 void
 send_query ( int sock, struct in_addr dest_addr, my_uint32_t rtt_base );
 
@@ -110,7 +113,7 @@ usage ( void )
   printf ( "\tnbtscan -f iplist\n" );
   printf ( "\t\tScans IP addresses specified in file iplist.\n" );
   exit ( 2 );
-};
+}
 
 int
 set_range ( char *range_str, struct ip_range *range_struct )
@@ -122,7 +125,7 @@ set_range ( char *range_str, struct ip_range *range_struct )
   if ( is_range2 ( range_str, range_struct ) )
     return 1;
   return 0;
-};
+}
 
 void
 print_header ( void )
@@ -135,7 +138,7 @@ print_header ( void )
            "MAC address" );
   printf ( "-------------------------------------------------------------------"
            "-----------\n" );
-};
+}
 
 void
 d_print_hostinfo ( struct in_addr addr, const struct nb_host_info *hostinfo )
@@ -171,7 +174,7 @@ d_print_hostinfo ( struct in_addr addr, const struct nb_host_info *hostinfo )
                hostinfo->header->rdata_length );
       printf ( "Number of names: 0x%02x (%1$d)\n",
                hostinfo->header->number_of_names );
-    };
+    }
 
   if ( hostinfo->names )
     {
@@ -186,7 +189,7 @@ d_print_hostinfo ( struct in_addr addr, const struct nb_host_info *hostinfo )
                    service,
                    hostinfo->names[i].rr_flags );
         }
-    };
+    }
 
   if ( hostinfo->footer )
     {
@@ -231,8 +234,8 @@ d_print_hostinfo ( struct in_addr addr, const struct nb_host_info *hostinfo )
                hostinfo->footer->max_sessions );
       printf ( "Packet sessions: 0x%04x (%1$d)\n",
                hostinfo->footer->packet_sessions );
-    };
-};
+    }
+}
 
 int
 v_print_hostinfo ( struct in_addr addr,
@@ -252,7 +255,7 @@ v_print_hostinfo ( struct in_addr addr,
 
       printf ( "%-17s%-17s%-17s\n", "Name", "Service", "Type" );
       printf ( "----------------------------------------\n" );
-    };
+    }
   if ( hostinfo->header && hostinfo->names )
     {
       for ( i = 0; i < hostinfo->header->number_of_names; i++ )
@@ -291,10 +294,10 @@ v_print_hostinfo ( struct in_addr addr,
                     printf ( "             UNIQUE\n" );
                   else
                     printf ( "              GROUP\n" );
-                };
+                }
             }
-        };
-    };
+        }
+    }
 
   if ( hostinfo->footer )
     {
@@ -309,11 +312,11 @@ v_print_hostinfo ( struct in_addr addr,
                hostinfo->footer->adapter_address[3],
                hostinfo->footer->adapter_address[4],
                hostinfo->footer->adapter_address[5] );
-    };
+    }
   if ( !sf )
     printf ( "----------------------------------------\n" );
   return 1;
-};
+}
 
 int
 print_hostinfo ( struct in_addr addr, struct nb_host_info *hostinfo, char *sf )
@@ -339,7 +342,7 @@ print_hostinfo ( struct in_addr addr, struct nb_host_info *hostinfo, char *sf )
               strncpy ( comp_name, hostinfo->names[i].ascii_name, 15 );
               comp_name[15] = 0;
               first_name = 0;
-            };
+            }
           if ( service == 0x20 && unique )
             {
               is_server = 1;
@@ -348,9 +351,9 @@ print_hostinfo ( struct in_addr addr, struct nb_host_info *hostinfo, char *sf )
             {
               strncpy ( user_name, hostinfo->names[i].ascii_name, 15 );
               user_name[15] = 0;
-            };
-        };
-    };
+            }
+        }
+    }
 
   if ( sf )
     {
@@ -367,7 +370,7 @@ print_hostinfo ( struct in_addr addr, struct nb_host_info *hostinfo, char *sf )
       else
         printf ( "%-10s", "" );
       printf ( "%-17s", user_name );
-    };
+    }
   if ( hostinfo->footer )
     {
       printf ( "%02x:%02x:%02x:%02x:%02x:%02x\n",
@@ -381,9 +384,9 @@ print_hostinfo ( struct in_addr addr, struct nb_host_info *hostinfo, char *sf )
   else
     {
       printf ( "\n" );
-    };
+    }
   return 1;
-};
+}
 
 /* Print hostinfo in /etc/hosts or lmhosts format */
 /* If l is true adds #PRE to each line of output (for lmhosts) */
@@ -411,9 +414,9 @@ l_print_hostinfo ( struct in_addr addr, struct nb_host_info *hostinfo, int l )
               strncpy ( comp_name, hostinfo->names[i].ascii_name, 15 );
               comp_name[15] = 0;
               first_name = 0;
-            };
-        };
-    };
+            }
+        }
+    }
   printf ( "%s\t%s", inet_ntoa ( addr ), comp_name );
   if ( l )
     printf ( "\t#PRE" );
@@ -463,7 +466,7 @@ main ( int argc, char *argv[] )
     {
       print_banner ();
       usage ();
-    };
+    }
 
   while ( ( ch = getopt ( argc, argv, "vrdelqhm:s:t:b:f:" ) ) != -1 )
     switch ( ch )
@@ -477,7 +480,7 @@ main ( int argc, char *argv[] )
             {
               printf ( "Bad timeout value: %s\n", optarg );
               usage ();
-            };
+            }
           break;
         case 'r':
 #if defined WINDOWS
@@ -516,7 +519,7 @@ main ( int argc, char *argv[] )
             {
               printf ( "Bad number of retransmits: %s\n", optarg );
               usage ();
-            };
+            }
           break;
         case 'f':
           filename = optarg;
@@ -524,70 +527,70 @@ main ( int argc, char *argv[] )
         default:
           print_banner ();
           usage ();
-      };
+      }
 
   if ( dump && verbose )
     {
       printf ( "Cannot be used with both dump (-d) and verbose (-v) "
                "options.\n" );
       usage ();
-    };
+    }
 
   if ( dump && sf )
     {
       printf ( "Cannot be used with both dump (-d) and script-friendly (-s) "
                "options.\n" );
       usage ();
-    };
+    }
 
   if ( dump && lmhosts )
     {
       printf ( "Cannot be used with both dump (-d) and lmhosts (-l) "
                "options.\n" );
       usage ();
-    };
+    }
 
   if ( dump && etc_hosts )
     {
       printf ( "Cannot be used with both dump (-d) and /etc/hosts (-e) "
                "options.\n" );
       usage ();
-    };
+    }
 
   if ( verbose && lmhosts )
     {
       printf ( "Cannot be used with both verbose (-v) and lmhosts (-l) "
                "options.\n" );
       usage ();
-    };
+    }
 
   if ( verbose && etc_hosts )
     {
       printf ( "Cannot be used with both verbose (-v) and /etc/hosts (-e) "
                "options.\n" );
       usage ();
-    };
+    }
 
   if ( lmhosts && etc_hosts )
     {
       printf ( "Cannot be used with both lmhosts (-l) and /etc/hosts (-e) "
                "options.\n" );
       usage ();
-    };
+    }
 
   if ( dump && hr )
     {
       printf ( "Cannot be used with both dump (-d) and \"human-readable "
                "service names\" (-h) options.\n" );
       usage ();
-    };
+    }
 
   if ( hr && !verbose )
     {
       printf ( "\"Human-readable service names\" (-h) option cannot be used "
                "without verbose (-v) option.\n" );
       usage ();
-    };
+    }
 
   if ( filename )
     {
@@ -600,7 +603,7 @@ main ( int argc, char *argv[] )
         {
           targetlist = fopen ( filename, "r" );
           target_string = filename;
-        };
+        }
       if ( !targetlist )
         {
           snprintf ( errmsg, 80, "Cannot open file %s", filename );
@@ -623,7 +626,7 @@ main ( int argc, char *argv[] )
                    target_string );
           free ( target_string );
           usage ();
-        };
+        }
     }
 
   if ( !( quiet || sf || lmhosts || etc_hosts ) )
@@ -720,7 +723,7 @@ main ( int argc, char *argv[] )
                              inet_ntoa ( dest_sockaddr.sin_addr ) );
                   err_print ( errmsg, quiet );
                   continue;
-                };
+                }
               gettimeofday ( &recv_time, NULL );
               hostinfo =
                       ( struct nb_host_info * ) parse_response ( buff, size );
@@ -728,7 +731,7 @@ main ( int argc, char *argv[] )
                 {
                   err_print ( "parse_response returned NULL", quiet );
                   continue;
-                };
+                }
               /* If this packet isn't a duplicate */
               if ( insert ( scanned, ntohl ( dest_sockaddr.sin_addr.s_addr ) ) )
                 {
@@ -753,9 +756,9 @@ main ( int argc, char *argv[] )
                     l_print_hostinfo ( dest_sockaddr.sin_addr, hostinfo, 1 );
                   else
                     print_hostinfo ( dest_sockaddr.sin_addr, hostinfo, sf );
-                };
+                }
               free ( hostinfo );
-            };
+            }
 
           FD_ZERO ( fdsr );
           FD_SET ( sock, fdsr );
@@ -822,14 +825,14 @@ main ( int argc, char *argv[] )
                   select_timeout.tv_usec =
                           ( timeout % 1000 ) * 1000; /* Microseconds */
                   continue;
-                };
-            };
+                }
+            }
           if ( more_to_send )
             {
               FD_ZERO ( fdsw );
               FD_SET ( sock, fdsw );
-            };
-        };
+            }
+        }
 
       if ( i >= retransmits )
         break; /* If we are not going to retransmit
@@ -851,8 +854,8 @@ main ( int argc, char *argv[] )
       FD_SET ( sock, fdsw );
       FD_ZERO ( fdsr );
       FD_SET ( sock, fdsr );
-    };
+    }
 
   delete_list ( scanned );
   exit ( 0 );
-};
+}

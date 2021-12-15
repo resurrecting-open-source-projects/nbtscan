@@ -34,7 +34,7 @@ new_list ()
     err_die ( "Malloc failed", quiet );
   lst->head = NULL;
   return lst;
-};
+}
 
 struct list_item *
 new_list_item ( unsigned long content )
@@ -49,7 +49,7 @@ new_list_item ( unsigned long content )
   lst_item->prev = NULL;
   lst_item->content = content;
   return lst_item;
-};
+}
 
 void
 delete_list ( struct list *list )
@@ -68,11 +68,11 @@ delete_list ( struct list *list )
         {
           pointer = pointer->prev;
           free ( pointer->next );
-        };
+        }
       free ( pointer );
     }
   free ( list );
-};
+}
 
 int
 compare ( struct list_item *item1, struct list_item *item2 )
@@ -86,7 +86,7 @@ compare ( struct list_item *item1, struct list_item *item2 )
   if ( item1->content > item2->content )
     return 1;
   return -1;
-};
+}
 
 int
 insert ( struct list *lst, unsigned long content )
@@ -141,15 +141,15 @@ insert ( struct list *lst, unsigned long content )
             temp_item->next->prev = item;
           temp_item->next = item;
           return 1;
-        };
+        }
     }
   else if ( compare ( lst->head, item ) == ERROR )
     {
       free ( item );
       return ERROR;
-    };
+    }
   return 0;
-};
+}
 
 int
 in_list ( struct list *lst, unsigned long content )
@@ -166,4 +166,4 @@ in_list ( struct list *lst, unsigned long content )
   if ( compare ( temp_item, item ) == 0 )
     return 1;
   return 0;
-};
+}

@@ -52,7 +52,7 @@ is_ip ( char *string, struct ip_range *range )
     }
   else
     return 0;
-};
+}
 
 /* is_range1 checks if supplied string is an IP address range in
    form xxx.xxx.xxx.xxx/xx (as in 192.168.1.2/24) and fills
@@ -95,7 +95,7 @@ is_range1 ( char *string, struct ip_range *range )
     }
   free ( ip );
   return 0;
-};
+}
 
 /* next_address function writes next ip address in range after prev_addr to
    structure pointed by next_addr. Returns 1 if next ip found and 0 otherwise */
@@ -121,8 +121,8 @@ next_address ( const struct ip_range *range,
     {
       next_addr->s_addr = htonl ( range->start_ip );
       return 1;
-    };
-};
+    }
+}
 
 /* is_range2 checks if supplied string is an IP address range in
    form xxx.xxx.xxx.xxx-xxx (as in 192.168.1.2-15) and fills
@@ -149,26 +149,26 @@ is_range2 ( char *string, struct ip_range *range )
         {
           free ( ip );
           return 0;
-        };
+        }
       addr = inet_addr ( ip );
       if ( addr == INADDR_NONE )
         {
           free ( ip );
           return 0;
-        };
+        }
       range->start_ip = ntohl ( addr );
       range->end_ip = ( range->start_ip & 0xffffff00 ) | last_octet;
       if ( range->end_ip < range->start_ip )
         {
           free ( ip );
           return 0;
-        };
+        }
       free ( ip );
       return 1;
     }
   free ( ip );
   return 0;
-};
+}
 
 void
 print_range ( const struct ip_range *range )
@@ -185,6 +185,6 @@ print_range ( const struct ip_range *range )
   while ( next_address ( range, addr, addr ) )
     {
       printf ( "%s\n", inet_ntoa ( *addr ) );
-    };
+    }
   free ( addr );
-};
+}

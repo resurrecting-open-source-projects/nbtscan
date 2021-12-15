@@ -444,7 +444,8 @@ main ( int argc, char *argv[] )
   char *filename = NULL;
   struct ip_range range;
   void *buff;
-  int sock, addr_size;
+  int sock;
+  socklen_t addr_size;
   struct sockaddr_in src_sockaddr, dest_sockaddr;
   struct in_addr *prev_in_addr = NULL;
   struct in_addr *next_in_addr;

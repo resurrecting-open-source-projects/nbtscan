@@ -167,13 +167,13 @@ get16 ( void *data )
 }
 
 struct nb_host_info *
-parse_response ( char *buff, int buffsize )
+parse_response ( char *buff, unsigned int buffsize )
 {
   struct nb_host_info *hostinfo = NULL;
   nbname_response_footer_t *response_footer;
   nbname_response_header_t *response_header;
   int name_table_size;
-  int offset = 0;
+  unsigned int offset = 0;
 
   if ( ( response_header = malloc ( sizeof ( nbname_response_header_t ) ) ) ==
        NULL )

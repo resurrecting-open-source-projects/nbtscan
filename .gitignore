@@ -1,10 +1,14 @@
-#obj
+
 *.o
 
-src/deps*
+*.log
+
+src/
+!src/*.c
+!src/*.h
+
 
 # http://www.gnu.org/software/autoconf
-
 autom4te.cache
 /autoscan.log
 /autoscan-*.log

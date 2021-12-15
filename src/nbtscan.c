@@ -137,7 +137,78 @@ print_header ( void )
            "User",
            "MAC address" );
   puts ( "-------------------------------------------------------------------"
-           "-----------" );
+         "-----------" );
+}
+
+#define DUP( code ) code, code
+
+void
+print_nb_host_info_header ( const nbname_response_header_t *header )
+{
+  printf ( "Transaction ID: 0x%04x (%d)\n", DUP ( header->transaction_id ) );
+  printf ( "Flags: 0x%04x (%d)\n", DUP ( header->flags ) );
+  printf ( "Question count: 0x%04x (%d)\n", DUP ( header->question_count ) );
+  printf ( "Answer count: 0x%04x (%d)\n", DUP ( header->answer_count ) );
+  printf ( "Name service count: 0x%04x (%d)\n",
+           DUP ( header->name_service_count ) );
+  printf ( "Additional record count: 0x%04x (%d)\n",
+           DUP ( header->additional_record_count ) );
+  printf ( "Question name: %s\n", header->question_name );
+  printf ( "Question type: 0x%04x (%d)\n", DUP ( header->question_type ) );
+  printf ( "Question class: 0x%04x (%d)\n", DUP ( header->question_class ) );
+  printf ( "Time to live: 0x%08x (%d)\n", DUP ( header->ttl ) );
+  printf ( "Rdata length: 0x%04x (%d)\n", DUP ( header->rdata_length ) );
+  printf ( "Number of names: 0x%02x (%d)\n", DUP ( header->number_of_names ) );
+}
+
+void
+print_nb_host_info_footer ( const nbname_response_footer_t *footer )
+{
+  printf ( "Adapter address: %02x:%02x:%02x:%02x:%02x:%02x\n",
+           footer->adapter_address[0],
+           footer->adapter_address[1],
+           footer->adapter_address[2],
+           footer->adapter_address[3],
+           footer->adapter_address[4],
+           footer->adapter_address[5] );
+
+  printf ( "Version major: 0x%02x (%d)\n", DUP ( footer->version_major ) );
+  printf ( "Version minor: 0x%02x (%d)\n", DUP ( footer->version_minor ) );
+  printf ( "Duration: 0x%04x (%d)\n", DUP ( footer->duration ) );
+  printf ( "FRMRs Received: 0x%04x (%d)\n", DUP ( footer->frmps_received ) );
+
+  printf ( "FRMRs Transmitted: 0x%04x (%d)\n",
+           DUP ( footer->frmps_transmitted ) );
+
+  printf ( "IFrame Receive errors: 0x%04x (%d)\n",
+           DUP ( footer->iframe_receive_errors ) );
+
+  printf ( "Transmit aborts: 0x%04x (%d)\n", DUP ( footer->transmit_aborts ) );
+  printf ( "Transmitted: 0x%08x (%d)\n", DUP ( footer->transmitted ) );
+  printf ( "Received: 0x%08x (%d)\n", DUP ( footer->received ) );
+
+  printf ( "IFrame transmit errors: 0x%04x (%d)\n",
+           DUP ( footer->iframe_transmit_errors ) );
+
+  printf ( "No receive buffers: 0x%04x (%d)\n",
+           DUP ( footer->no_receive_buffer ) );
+
+  printf ( "tl timeouts: 0x%04x (%d)\n", DUP ( footer->tl_timeouts ) );
+  printf ( "ti timeouts: 0x%04x (%d)\n", DUP ( footer->ti_timeouts ) );
+  printf ( "Free NCBS: 0x%04x (%d)\n", DUP ( footer->free_ncbs ) );
+  printf ( "NCBS: 0x%04x (%d)\n", DUP ( footer->ncbs ) );
+  printf ( "Max NCBS: 0x%04x (%d)\n", DUP ( footer->max_ncbs ) );
+
+  printf ( "No transmit buffers: 0x%04x (%d)\n",
+           DUP ( footer->no_transmit_buffers ) );
+
+  printf ( "Max datagram: 0x%04x (%d)\n", DUP ( footer->max_datagram ) );
+
+  printf ( "Pending sessions: 0x%04x (%d)\n",
+           DUP ( footer->pending_sessions ) );
+
+  printf ( "Max sessions: 0x%04x (%d)\n", DUP ( footer->max_sessions ) );
+  printf ( "Packet sessions: 0x%04x (%d)\n", DUP ( footer->packet_sessions ) );
 }
 
 void
@@ -152,29 +223,7 @@ d_print_hostinfo ( struct in_addr addr, const struct nb_host_info *hostinfo )
     printf ( "Incomplete packet, %d bytes long.\n", hostinfo->is_broken );
 
   if ( hostinfo->header )
-    {
-      printf ( "Transaction ID: 0x%04x (%1$d)\n",
-               hostinfo->header->transaction_id );
-      printf ( "Flags: 0x%04x (%1$d)\n", hostinfo->header->flags );
-      printf ( "Question count: 0x%04x (%1$d)\n",
-               hostinfo->header->question_count );
-      printf ( "Answer count: 0x%04x (%1$d)\n",
-               hostinfo->header->answer_count );
-      printf ( "Name service count: 0x%04x (%1$d)\n",
-               hostinfo->header->name_service_count );
-      printf ( "Additional record count: 0x%04x (%1$d)\n",
-               hostinfo->header->additional_record_count );
-      printf ( "Question name: %s\n", hostinfo->header->question_name );
-      printf ( "Question type: 0x%04x (%1$d)\n",
-               hostinfo->header->question_type );
-      printf ( "Question class: 0x%04x (%1$d)\n",
-               hostinfo->header->question_class );
-      printf ( "Time to live: 0x%08x (%1$d)\n", hostinfo->header->ttl );
-      printf ( "Rdata length: 0x%04x (%1$d)\n",
-               hostinfo->header->rdata_length );
-      printf ( "Number of names: 0x%02x (%1$d)\n",
-               hostinfo->header->number_of_names );
-    }
+    print_nb_host_info_header ( hostinfo->header );
 
   if ( hostinfo->names )
     {
@@ -192,49 +241,7 @@ d_print_hostinfo ( struct in_addr addr, const struct nb_host_info *hostinfo )
     }
 
   if ( hostinfo->footer )
-    {
-      printf ( "Adapter address: %02x:%02x:%02x:%02x:%02x:%02x\n",
-               hostinfo->footer->adapter_address[0],
-               hostinfo->footer->adapter_address[1],
-               hostinfo->footer->adapter_address[2],
-               hostinfo->footer->adapter_address[3],
-               hostinfo->footer->adapter_address[4],
-               hostinfo->footer->adapter_address[5] );
-      printf ( "Version major: 0x%02x (%1$d)\n",
-               hostinfo->footer->version_major );
-      printf ( "Version minor: 0x%02x (%1$d)\n",
-               hostinfo->footer->version_minor );
-      printf ( "Duration: 0x%04x (%1$d)\n", hostinfo->footer->duration );
-      printf ( "FRMRs Received: 0x%04x (%1$d)\n",
-               hostinfo->footer->frmps_received );
-      printf ( "FRMRs Transmitted: 0x%04x (%1$d)\n",
-               hostinfo->footer->frmps_transmitted );
-      printf ( "IFrame Receive errors: 0x%04x (%1$d)\n",
-               hostinfo->footer->iframe_receive_errors );
-      printf ( "Transmit aborts: 0x%04x (%1$d)\n",
-               hostinfo->footer->transmit_aborts );
-      printf ( "Transmitted: 0x%08x (%1$d)\n", hostinfo->footer->transmitted );
-      printf ( "Received: 0x%08x (%1$d)\n", hostinfo->footer->received );
-      printf ( "IFrame transmit errors: 0x%04x (%1$d)\n",
-               hostinfo->footer->iframe_transmit_errors );
-      printf ( "No receive buffers: 0x%04x (%1$d)\n",
-               hostinfo->footer->no_receive_buffer );
-      printf ( "tl timeouts: 0x%04x (%1$d)\n", hostinfo->footer->tl_timeouts );
-      printf ( "ti timeouts: 0x%04x (%1$d)\n", hostinfo->footer->ti_timeouts );
-      printf ( "Free NCBS: 0x%04x (%1$d)\n", hostinfo->footer->free_ncbs );
-      printf ( "NCBS: 0x%04x (%1$d)\n", hostinfo->footer->ncbs );
-      printf ( "Max NCBS: 0x%04x (%1$d)\n", hostinfo->footer->max_ncbs );
-      printf ( "No transmit buffers: 0x%04x (%1$d)\n",
-               hostinfo->footer->no_transmit_buffers );
-      printf ( "Max datagram: 0x%04x (%1$d)\n",
-               hostinfo->footer->max_datagram );
-      printf ( "Pending sessions: 0x%04x (%1$d)\n",
-               hostinfo->footer->pending_sessions );
-      printf ( "Max sessions: 0x%04x (%1$d)\n",
-               hostinfo->footer->max_sessions );
-      printf ( "Packet sessions: 0x%04x (%1$d)\n",
-               hostinfo->footer->packet_sessions );
-    }
+    print_nb_host_info_footer ( hostinfo ->footer );
 }
 
 int

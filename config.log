@@ -95,27 +95,27 @@ gcc: fatal error: no input files
 compilation terminated.
 configure:3271: $? = 1
 configure:3291: checking whether the C compiler works
-configure:3313: gcc -pedantic -Wextra -Wformat -std=c11   conftest.c  >&5
+configure:3313: gcc -pedantic -Wall -Wextra -Wformat   conftest.c  >&5
 configure:3317: $? = 0
 configure:3365: result: yes
 configure:3368: checking for C compiler default output file name
 configure:3370: result: a.out
 configure:3376: checking for suffix of executables
-configure:3383: gcc -o conftest -pedantic -Wextra -Wformat -std=c11   conftest.c  >&5
+configure:3383: gcc -o conftest -pedantic -Wall -Wextra -Wformat   conftest.c  >&5
 configure:3387: $? = 0
 configure:3409: result: 
 configure:3431: checking whether we are cross compiling
-configure:3439: gcc -o conftest -pedantic -Wextra -Wformat -std=c11   conftest.c  >&5
+configure:3439: gcc -o conftest -pedantic -Wall -Wextra -Wformat   conftest.c  >&5
 configure:3443: $? = 0
 configure:3450: ./conftest
 configure:3454: $? = 0
 configure:3469: result: no
 configure:3474: checking for suffix of object files
-configure:3496: gcc -c -pedantic -Wextra -Wformat -std=c11  conftest.c >&5
+configure:3496: gcc -c -pedantic -Wall -Wextra -Wformat  conftest.c >&5
 configure:3500: $? = 0
 configure:3521: result: o
 configure:3525: checking whether we are using the GNU C compiler
-configure:3544: gcc -c -pedantic -Wextra -Wformat -std=c11  conftest.c >&5
+configure:3544: gcc -c -pedantic -Wall -Wextra -Wformat  conftest.c >&5
 configure:3544: $? = 0
 configure:3553: result: yes
 configure:3562: checking whether gcc accepts -g
@@ -123,7 +123,7 @@ configure:3582: gcc -c -g  conftest.c >&5
 configure:3582: $? = 0
 configure:3623: result: yes
 configure:3640: checking for gcc option to accept ISO C89
-configure:3703: gcc  -c -pedantic -Wextra -Wformat -std=c11  conftest.c >&5
+configure:3703: gcc  -c -pedantic -Wall -Wextra -Wformat  conftest.c >&5
 configure:3703: $? = 0
 configure:3716: result: none needed
 configure:3741: checking whether gcc understands -c and -o together
@@ -142,7 +142,7 @@ configure:3835: result: yes (GNU style)
 configure:3860: checking dependency style of gcc
 configure:3971: result: gcc3
 configure:3989: checking for socket in -lxnet
-configure:4014: gcc -o conftest -pedantic -Wextra -Wformat -std=c11   conftest.c -lxnet   >&5
+configure:4014: gcc -o conftest -pedantic -Wall -Wextra -Wformat   conftest.c -lxnet   >&5
 /usr/bin/ld: cannot find -lxnet
 collect2: error: ld returned 1 exit status
 configure:4014: $? = 1
@@ -174,7 +174,7 @@ configure: failed program was:
 | }
 configure:4023: result: no
 configure:4034: checking for socket in -lsocket
-configure:4059: gcc -o conftest -pedantic -Wextra -Wformat -std=c11   conftest.c -lsocket   >&5
+configure:4059: gcc -o conftest -pedantic -Wall -Wextra -Wformat   conftest.c -lsocket   >&5
 /usr/bin/ld: cannot find -lsocket
 collect2: error: ld returned 1 exit status
 configure:4059: $? = 1
@@ -206,7 +206,7 @@ configure: failed program was:
 | }
 configure:4068: result: no
 configure:4079: checking for inet_aton in -lresolv
-configure:4104: gcc -o conftest -pedantic -Wextra -Wformat -std=c11   conftest.c -lresolv   >&5
+configure:4104: gcc -o conftest -pedantic -Wall -Wextra -Wformat   conftest.c -lresolv   >&5
 configure:4104: $? = 0
 configure:4113: result: yes
 configure:4125: checking for grep that handles long lines and -e
@@ -258,51 +258,51 @@ configure: failed program was:
 | /* end confdefs.h.  */
 | #include <ac_nonexistent.h>
 configure:4394: checking for ANSI C header files
-configure:4414: gcc -c -pedantic -Wextra -Wformat -std=c11  conftest.c >&5
+configure:4414: gcc -c -pedantic -Wall -Wextra -Wformat  conftest.c >&5
 configure:4414: $? = 0
-configure:4487: gcc -o conftest -pedantic -Wextra -Wformat -std=c11   conftest.c -lresolv  >&5
+configure:4487: gcc -o conftest -pedantic -Wall -Wextra -Wformat   conftest.c -lresolv  >&5
 configure:4487: $? = 0
 configure:4487: ./conftest
 configure:4487: $? = 0
 configure:4498: result: yes
 configure:4511: checking for sys/types.h
-configure:4511: gcc -c -pedantic -Wextra -Wformat -std=c11  conftest.c >&5
+configure:4511: gcc -c -pedantic -Wall -Wextra -Wformat  conftest.c >&5
 configure:4511: $? = 0
 configure:4511: result: yes
 configure:4511: checking for sys/stat.h
-configure:4511: gcc -c -pedantic -Wextra -Wformat -std=c11  conftest.c >&5
+configure:4511: gcc -c -pedantic -Wall -Wextra -Wformat  conftest.c >&5
 configure:4511: $? = 0
 configure:4511: result: yes
 configure:4511: checking for stdlib.h
-configure:4511: gcc -c -pedantic -Wextra -Wformat -std=c11  conftest.c >&5
+configure:4511: gcc -c -pedantic -Wall -Wextra -Wformat  conftest.c >&5
 configure:4511: $? = 0
 configure:4511: result: yes
 configure:4511: checking for string.h
-configure:4511: gcc -c -pedantic -Wextra -Wformat -std=c11  conftest.c >&5
+configure:4511: gcc -c -pedantic -Wall -Wextra -Wformat  conftest.c >&5
 configure:4511: $? = 0
 configure:4511: result: yes
 configure:4511: checking for memory.h
-configure:4511: gcc -c -pedantic -Wextra -Wformat -std=c11  conftest.c >&5
+configure:4511: gcc -c -pedantic -Wall -Wextra -Wformat  conftest.c >&5
 configure:4511: $? = 0
 configure:4511: result: yes
 configure:4511: checking for strings.h
-configure:4511: gcc -c -pedantic -Wextra -Wformat -std=c11  conftest.c >&5
+configure:4511: gcc -c -pedantic -Wall -Wextra -Wformat  conftest.c >&5
 configure:4511: $? = 0
 configure:4511: result: yes
 configure:4511: checking for inttypes.h
-configure:4511: gcc -c -pedantic -Wextra -Wformat -std=c11  conftest.c >&5
+configure:4511: gcc -c -pedantic -Wall -Wextra -Wformat  conftest.c >&5
 configure:4511: $? = 0
 configure:4511: result: yes
 configure:4511: checking for stdint.h
-configure:4511: gcc -c -pedantic -Wextra -Wformat -std=c11  conftest.c >&5
+configure:4511: gcc -c -pedantic -Wall -Wextra -Wformat  conftest.c >&5
 configure:4511: $? = 0
 configure:4511: result: yes
 configure:4511: checking for unistd.h
-configure:4511: gcc -c -pedantic -Wextra -Wformat -std=c11  conftest.c >&5
+configure:4511: gcc -c -pedantic -Wall -Wextra -Wformat  conftest.c >&5
 configure:4511: $? = 0
 configure:4511: result: yes
 configure:4525: checking sys/time.h usability
-configure:4525: gcc -c -pedantic -Wextra -Wformat -std=c11  conftest.c >&5
+configure:4525: gcc -c -pedantic -Wall -Wextra -Wformat  conftest.c >&5
 configure:4525: $? = 0
 configure:4525: result: yes
 configure:4525: checking sys/time.h presence
@@ -314,9 +314,9 @@ configure:4525: result: yes
 configure:4537: checking for stdint.h
 configure:4537: result: yes
 configure:4548: checking for uint8_t
-configure:4548: gcc -c -pedantic -Wextra -Wformat -std=c11  conftest.c >&5
+configure:4548: gcc -c -pedantic -Wall -Wextra -Wformat  conftest.c >&5
 configure:4548: $? = 0
-configure:4548: gcc -c -pedantic -Wextra -Wformat -std=c11  conftest.c >&5
+configure:4548: gcc -c -pedantic -Wall -Wextra -Wformat  conftest.c >&5
 conftest.c: In function 'main':
 conftest.c:60:22: error: expected expression before ')' token
    60 | if (sizeof ((uint8_t)))
@@ -389,9 +389,9 @@ configure: failed program was:
 | }
 configure:4548: result: yes
 configure:4561: checking for uint16_t
-configure:4561: gcc -c -pedantic -Wextra -Wformat -std=c11  conftest.c >&5
+configure:4561: gcc -c -pedantic -Wall -Wextra -Wformat  conftest.c >&5
 configure:4561: $? = 0
-configure:4561: gcc -c -pedantic -Wextra -Wformat -std=c11  conftest.c >&5
+configure:4561: gcc -c -pedantic -Wall -Wextra -Wformat  conftest.c >&5
 conftest.c: In function 'main':
 conftest.c:61:23: error: expected expression before ')' token
    61 | if (sizeof ((uint16_t)))
@@ -465,9 +465,9 @@ configure: failed program was:
 | }
 configure:4561: result: yes
 configure:4574: checking for uint32_t
-configure:4574: gcc -c -pedantic -Wextra -Wformat -std=c11  conftest.c >&5
+configure:4574: gcc -c -pedantic -Wall -Wextra -Wformat  conftest.c >&5
 configure:4574: $? = 0
-configure:4574: gcc -c -pedantic -Wextra -Wformat -std=c11  conftest.c >&5
+configure:4574: gcc -c -pedantic -Wall -Wextra -Wformat  conftest.c >&5
 conftest.c: In function 'main':
 conftest.c:62:23: error: expected expression before ')' token
    62 | if (sizeof ((uint32_t)))
@@ -542,11 +542,11 @@ configure: failed program was:
 | }
 configure:4574: result: yes
 configure:4588: checking for an ANSI C-conforming const
-configure:4654: gcc -c -pedantic -Wextra -Wformat -std=c11  conftest.c >&5
+configure:4654: gcc -c -pedantic -Wall -Wextra -Wformat  conftest.c >&5
 configure:4654: $? = 0
 configure:4661: result: yes
 configure:4673: checking for snprintf
-configure:4673: gcc -o conftest -pedantic -Wextra -Wformat -std=c11   conftest.c -lresolv  >&5
+configure:4673: gcc -o conftest -pedantic -Wall -Wextra -Wformat   conftest.c -lresolv  >&5
 conftest.c:50:6: warning: conflicting types for built-in function 'snprintf'; expected 'int(char *, long unsigned int,  const char *, ...)' [-Wbuiltin-declaration-mismatch]
    50 | char snprintf ();
       |      ^~~~~~~~
@@ -556,11 +556,11 @@ conftest.c:38:1: note: 'snprintf' is declared in header '<stdio.h>'
 configure:4673: $? = 0
 configure:4673: result: yes
 configure:4673: checking for inet_aton
-configure:4673: gcc -o conftest -pedantic -Wextra -Wformat -std=c11   conftest.c -lresolv  >&5
+configure:4673: gcc -o conftest -pedantic -Wall -Wextra -Wformat   conftest.c -lresolv  >&5
 configure:4673: $? = 0
 configure:4673: result: yes
 configure:4673: checking for socket
-configure:4673: gcc -o conftest -pedantic -Wextra -Wformat -std=c11   conftest.c -lresolv  >&5
+configure:4673: gcc -o conftest -pedantic -Wall -Wextra -Wformat   conftest.c -lresolv  >&5
 configure:4673: $? = 0
 configure:4673: result: yes
 configure:4837: checking that generated files are newer than configure
@@ -649,7 +649,7 @@ AWK='gawk'
 BINDIR='NONE/bin'
 CC='gcc'
 CCDEPMODE='depmode=gcc3'
-CFLAGS='-pedantic -Wextra -Wformat -std=c11'
+CFLAGS='-pedantic -Wall -Wextra -Wformat'
 CPP='gcc -E'
 CPPFLAGS=''
 CYGPATH_W='echo'

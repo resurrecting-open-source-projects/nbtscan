@@ -23,7 +23,7 @@ AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([src/statusq.c])
 
 
-CFLAGS="-pedantic -Wextra -Wformat -std=c11"
+CFLAGS="-pedantic -Wall -Wextra -Wformat"
 
 dnl Checks for programs.
 AC_PROG_CC

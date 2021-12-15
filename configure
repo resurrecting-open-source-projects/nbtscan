@@ -2942,7 +2942,7 @@ fi
 
 
 
-CFLAGS="-pedantic -Wextra -Wformat"
+CFLAGS="-pedantic -Wextra -Wformat -std=c11"
 
 ac_ext=c
 ac_cpp='$CPP $CPPFLAGS'

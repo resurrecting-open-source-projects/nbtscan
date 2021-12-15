@@ -1,4 +1,4 @@
-nbtscan.o: nbtscan.c /usr/include/stdc-predef.h \
+statusq.o: statusq.c /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/sys/types.h /usr/include/features.h \
  /usr/include/x86_64-linux-gnu/sys/cdefs.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
@@ -37,15 +37,9 @@ nbtscan.o: nbtscan.c /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/sys/select.h \
  /usr/include/x86_64-linux-gnu/bits/select.h \
  /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
- /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h \
- /usr/include/string.h /usr/include/unistd.h \
- /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
- /usr/include/x86_64-linux-gnu/bits/confname.h \
- /usr/include/x86_64-linux-gnu/bits/unistd_ext.h /usr/include/getopt.h \
- /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
- /usr/include/x86_64-linux-gnu/bits/getopt_ext.h \
+ /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h statusq.h \
  /usr/lib/gcc/x86_64-linux-gnu/10/include/stdint.h /usr/include/stdint.h \
- /usr/include/x86_64-linux-gnu/bits/wchar.h statusq.h range.h \
+ /usr/include/x86_64-linux-gnu/bits/wchar.h /usr/include/string.h \
  /usr/include/stdio.h /usr/lib/gcc/x86_64-linux-gnu/10/include/stdarg.h \
  /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
@@ -55,7 +49,7 @@ nbtscan.o: nbtscan.c /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/x86_64-linux-gnu/bits/sys_errlist.h /usr/include/ctype.h \
- list.h errors.h time.h
+ errors.h
 /usr/include/stdc-predef.h:
 /usr/include/x86_64-linux-gnu/sys/types.h:
 /usr/include/features.h:
@@ -99,19 +93,11 @@ nbtscan.o: nbtscan.c /usr/include/stdc-predef.h \
 /usr/include/x86_64-linux-gnu/bits/select.h:
 /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h:
 /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h:
-/usr/include/string.h:
-/usr/include/unistd.h:
-/usr/include/x86_64-linux-gnu/bits/posix_opt.h:
-/usr/include/x86_64-linux-gnu/bits/confname.h:
-/usr/include/x86_64-linux-gnu/bits/unistd_ext.h:
-/usr/include/getopt.h:
-/usr/include/x86_64-linux-gnu/bits/getopt_core.h:
-/usr/include/x86_64-linux-gnu/bits/getopt_ext.h:
+statusq.h:
 /usr/lib/gcc/x86_64-linux-gnu/10/include/stdint.h:
 /usr/include/stdint.h:
 /usr/include/x86_64-linux-gnu/bits/wchar.h:
-statusq.h:
-range.h:
+/usr/include/string.h:
 /usr/include/stdio.h:
 /usr/lib/gcc/x86_64-linux-gnu/10/include/stdarg.h:
 /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h:
@@ -123,6 +109,4 @@ range.h:
 /usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
 /usr/include/x86_64-linux-gnu/bits/sys_errlist.h:
 /usr/include/ctype.h:
-list.h:
 errors.h:
-time.h:

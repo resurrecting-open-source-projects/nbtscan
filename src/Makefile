@@ -190,7 +190,7 @@ AWK = gawk
 BINDIR = NONE/bin
 CC = gcc
 CCDEPMODE = depmode=gcc3
-CFLAGS = -pedantic -Wextra -Wformat
+CFLAGS = -pedantic -Wextra -Wformat -std=c11
 CPP = gcc -E
 CPPFLAGS = 
 CYGPATH_W = echo

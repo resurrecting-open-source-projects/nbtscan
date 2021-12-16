@@ -1,28 +1,30 @@
 
 *.o
-
 *.log
 
-src/
-!src/*.c
-!src/*.h
+src/.deps
 
-
-# http://www.gnu.org/software/autoconf
-autom4te.cache
-/autoscan.log
-/autoscan-*.log
-/aclocal.m4
-/compile
-/config.cache
-/config.guess
-/config.h.in
-/config.log
-/config.status
-/config.sub
-/configure
-/configure.scan
-/depcomp
-/install-sh
-/missing
-/stamp-h1
+INSTALL
+Makefile
+Makefile.in
+aclocal.m4
+autom4te.cache/output.0
+autom4te.cache/output.1
+autom4te.cache/requests
+autom4te.cache/traces.0
+autom4te.cache/traces.1
+compile
+config.guess
+config.log
+config.status
+config.sub
+configure
+depcomp
+install-sh
+missing
+src/.deps/list.Po
+src/.deps/nbtscan.Po
+src/.deps/range.Po
+src/.deps/statusq.Po
+src/Makefile
+src/Makefile.in

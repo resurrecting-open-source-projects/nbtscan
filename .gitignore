@@ -25,3 +25,4 @@ src/.deps/range.Po
 src/.deps/statusq.Po
 src/Makefile
 src/Makefile.in
+src/nbtscan

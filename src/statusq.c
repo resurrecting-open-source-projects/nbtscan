@@ -444,7 +444,7 @@ getnbservicename ( my_uint8_t service, int unique, char *name )
   int i;
   char *unknown;
 
-  unknown = ( char * ) malloc ( 100 );
+  unknown = malloc ( 100 );
 
   if ( !unknown )
     err_die ( "Malloc failed.\n", 0 );

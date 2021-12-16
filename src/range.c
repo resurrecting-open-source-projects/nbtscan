@@ -65,7 +65,7 @@ is_range1 ( char *string, struct ip_range *range )
   unsigned int mask;
   char *ip;
 
-  if ( ( ip = ( char * ) malloc ( strlen ( string ) + 1 ) ) == NULL )
+  if ( ( ip = malloc ( strlen ( string ) + 1 ) ) == NULL )
     err_die ( "Malloc failed", quiet );
 
   if ( strlen ( string ) > 19 )
@@ -136,7 +136,7 @@ is_range2 ( char *string, struct ip_range *range )
   unsigned long addr;
   char *ip;
 
-  if ( ( ip = ( char * ) malloc ( strlen ( string ) + 1 ) ) == NULL )
+  if ( ( ip = malloc ( strlen ( string ) + 1 ) ) == NULL )
     err_die ( "Malloc failed", quiet );
   strcpy ( ip, string );
 
@@ -175,7 +175,7 @@ print_range ( const struct ip_range *range )
 {
   struct in_addr *addr;
 
-  if ( ( addr = ( struct in_addr * ) malloc ( sizeof ( struct in_addr ) ) ) ==
+  if ( ( addr = malloc ( sizeof ( struct in_addr ) ) ) ==
        NULL )
     err_die ( "Malloc failed", quiet );
 

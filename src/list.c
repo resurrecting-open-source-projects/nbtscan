@@ -166,5 +166,5 @@ in_list ( struct list *lst, unsigned long content )
     temp_item = temp_item->next;
 
   // return 1 is equal or 0 not equal
-  return !compare( temp_item, &item );
+  return !compare ( temp_item, &item );
 }

@@ -133,7 +133,10 @@ send_query ( int sock, struct in_addr dest_addr, my_uint32_t rtt_base )
                     sizeof ( dest_sockaddr ) );
   if ( status == -1 )
     {
-      snprintf ( errmsg, sizeof errmsg, "%s\tSendto failed", inet_ntoa ( dest_addr ) );
+      snprintf ( errmsg,
+                 sizeof errmsg,
+                 "%s\tSendto failed",
+                 inet_ntoa ( dest_addr ) );
       err_print ( errmsg, quiet );
     }
 }
@@ -173,15 +176,17 @@ parse_response ( char *buff, unsigned int buffsize )
   int name_table_size;
   unsigned int offset = 0;
 
-  if ( ( response_header =
-                 calloc ( 1, sizeof ( nbname_response_header_t ) ) ) == NULL )
-    return NULL;
-  if ( ( response_footer =
-                 calloc ( 1, sizeof ( nbname_response_footer_t ) ) ) == NULL )
-    return NULL;
+  response_header = calloc ( 1, sizeof ( nbname_response_header_t ) );
+  response_footer = calloc ( 1, sizeof ( nbname_response_footer_t ) );
+  hostinfo = malloc ( sizeof ( struct nb_host_info ) );
 
-  if ( ( hostinfo = malloc ( sizeof ( struct nb_host_info ) ) ) == NULL )
-    return NULL;
+  if ( !response_header || !response_footer || !hostinfo )
+    {
+      free ( response_header );
+      free ( response_footer );
+      free ( hostinfo );
+      return NULL;
+    }
 
   hostinfo->header = NULL;
   hostinfo->names = NULL;
@@ -264,7 +269,13 @@ parse_response ( char *buff, unsigned int buffsize )
     goto broken_packet;
 
   if ( ( hostinfo->names = malloc ( name_table_size ) ) == NULL )
-    return NULL;
+    {
+      free ( response_header );
+      free ( response_footer );
+      free ( hostinfo );
+      return NULL;
+    }
+
   memcpy ( hostinfo->names, buff + offset, name_table_size );
 
   offset += name_table_size;
@@ -275,9 +286,11 @@ parse_response ( char *buff, unsigned int buffsize )
 
   if ( offset + sizeof ( response_footer->adapter_address ) >= buffsize )
     goto broken_packet;
+
   memcpy ( response_footer->adapter_address,
            ( buff + offset ),
            sizeof ( response_footer->adapter_address ) );
+
   offset += sizeof ( response_footer->adapter_address );
 
   hostinfo->footer = response_footer;
@@ -395,6 +408,7 @@ parse_response ( char *buff, unsigned int buffsize )
 
 broken_packet:
   hostinfo->is_broken = offset;
+
   return hostinfo;
 }
 
@@ -450,7 +464,7 @@ getnbservicename ( my_uint8_t service, int unique, char *name )
     {
       if ( service == services[i].service_number &&
            unique == services[i].unique &&
-         strstr ( name, services[i].nb_name ) )
+           strstr ( name, services[i].nb_name ) )
         return services[i].service_name;
     }
 

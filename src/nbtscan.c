@@ -423,7 +423,7 @@ main ( int argc, char *argv[] )
       send_ok = 0, hr = 0, etc_hosts = 0, lmhosts = 0;
   extern char *optarg;
   extern int optind;
-  char *target_string;
+  char *target_string, *temp_target_string = NULL;
   char *sf = NULL;
   char *filename = NULL;
   struct ip_range range;
@@ -437,8 +437,8 @@ main ( int argc, char *argv[] )
           send_interval;
   struct timeval transmit_started, now, recv_time;
   struct nb_host_info *hostinfo;
-  fd_set *fdsr;
-  fd_set *fdsw;
+  fd_set fdsr;
+  fd_set fdsw;
   int size;
   struct list *scanned;
   my_uint32_t
@@ -619,6 +619,8 @@ main ( int argc, char *argv[] )
           free ( target_string );
           usage ();
         }
+
+      temp_target_string = target_string;
     }
 
   if ( !( quiet || sf || lmhosts || etc_hosts ) )
@@ -642,17 +644,11 @@ main ( int argc, char *argv[] )
               sizeof ( src_sockaddr ) ) == -1 )
     err_die ( "Failed to bind", quiet );
 
-  fdsr = malloc ( sizeof ( fd_set ) );
-  if ( !fdsr )
-    err_die ( "Malloc failed", quiet );
-  FD_ZERO ( fdsr );
-  FD_SET ( sock, fdsr );
+  FD_ZERO ( &fdsr );
+  FD_SET ( sock, &fdsr );
 
-  fdsw = malloc ( sizeof ( fd_set ) );
-  if ( !fdsw )
-    err_die ( "Malloc failed", quiet );
-  FD_ZERO ( fdsw );
-  FD_SET ( sock, fdsw );
+  FD_ZERO ( &fdsw );
+  FD_SET ( sock, &fdsw );
 
   /* timeout is in milliseconds */
   select_timeout.tv_sec = 60; /* Default 1 min to survive ARP timeouts */
@@ -698,9 +694,9 @@ main ( int argc, char *argv[] )
   for ( i = 0; i <= retransmits; i++ )
     {
       gettimeofday ( &transmit_started, NULL );
-      while ( ( select ( sock + 1, fdsr, fdsw, NULL, &select_timeout ) ) > 0 )
+      while ( ( select ( sock + 1, &fdsr, &fdsw, NULL, &select_timeout ) ) > 0 )
         {
-          if ( FD_ISSET ( sock, fdsr ) )
+          if ( FD_ISSET ( sock, &fdsr ) )
             {
               if ( ( size = recvfrom ( sock,
                                        buff,
@@ -749,18 +745,22 @@ main ( int argc, char *argv[] )
                   else
                     print_hostinfo ( dest_sockaddr.sin_addr, hostinfo, sf );
                 }
+
+              free ( hostinfo->header );
+              free ( hostinfo->footer );
+              free ( hostinfo->names );
               free ( hostinfo );
             }
 
-          FD_ZERO ( fdsr );
-          FD_SET ( sock, fdsr );
+          FD_ZERO ( &fdsr );
+          FD_SET ( sock, &fdsr );
 
           /* check if send_interval time passed since last send */
           gettimeofday ( &current_time, NULL );
           timersub ( &current_time, &last_send_time, &diff_time );
           send_ok = timercmp ( &diff_time, &send_interval, >= );
 
-          if ( more_to_send && FD_ISSET ( sock, fdsw ) && send_ok )
+          if ( more_to_send && FD_ISSET ( sock, &fdsw ) && send_ok )
             {
               if ( targetlist )
                 {
@@ -783,7 +783,7 @@ main ( int argc, char *argv[] )
                       if ( feof ( targetlist ) )
                         {
                           more_to_send = 0;
-                          FD_ZERO ( fdsw );
+                          FD_ZERO ( &fdsw );
                           /* timeout is in milliseconds */
                           select_timeout.tv_sec = timeout / 1000;
                           select_timeout.tv_usec =
@@ -811,7 +811,7 @@ main ( int argc, char *argv[] )
               else
                 { /* No more queries to send */
                   more_to_send = 0;
-                  FD_ZERO ( fdsw );
+                  FD_ZERO ( &fdsw );
                   /* timeout is in milliseconds */
                   select_timeout.tv_sec = timeout / 1000;
                   select_timeout.tv_usec =
@@ -821,8 +821,8 @@ main ( int argc, char *argv[] )
             }
           if ( more_to_send )
             {
-              FD_ZERO ( fdsw );
-              FD_SET ( sock, fdsw );
+              FD_ZERO ( &fdsw );
+              FD_SET ( sock, &fdsw );
             }
         }
 
@@ -842,12 +842,15 @@ main ( int argc, char *argv[] )
         sleep ( ( transmit_started.tv_sec + rto ) - now.tv_sec );
       prev_in_addr = NULL;
       more_to_send = 1;
-      FD_ZERO ( fdsw );
-      FD_SET ( sock, fdsw );
-      FD_ZERO ( fdsr );
-      FD_SET ( sock, fdsr );
+      FD_ZERO ( &fdsw );
+      FD_SET ( sock, &fdsw );
+      FD_ZERO ( &fdsr );
+      FD_SET ( sock, &fdsr );
     }
 
   delete_list ( scanned );
+  free ( next_in_addr );
+  free ( temp_target_string );
+  free ( buff );
   exit ( 0 );
 }

@@ -145,7 +145,7 @@ is_range2 ( char *string, struct ip_range *range )
       *separator = 0;
       separator++;
       last_octet = atoi ( separator );
-      if ( last_octet < 0 || last_octet > 255 )
+      if ( last_octet > 255 )
         {
           free ( ip );
           return 0;

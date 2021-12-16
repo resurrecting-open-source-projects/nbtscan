@@ -649,7 +649,7 @@ main ( int argc, char *argv[] )
   if ( sock < 0 )
     err_die ( "Failed to create socket", quiet );
 
-  bzero ( ( void * ) &src_sockaddr, sizeof ( src_sockaddr ) );
+  memset( &src_sockaddr, 0, sizeof src_sockaddr );
   src_sockaddr.sin_family = AF_INET;
   if ( use137 )
     src_sockaddr.sin_port = htons ( NB_DGRAM );

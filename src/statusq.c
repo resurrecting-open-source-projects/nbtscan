@@ -101,15 +101,16 @@ void
 send_query ( int sock, struct in_addr dest_addr, my_uint32_t rtt_base )
 {
   struct nbname_request request;
-  struct sockaddr_in dest_sockaddr;
+  ;
   int status;
   struct timeval tv;
   char errmsg[80];
 
-  bzero ( ( void * ) &dest_sockaddr, sizeof ( dest_sockaddr ) );
-  dest_sockaddr.sin_family = AF_INET;
-  dest_sockaddr.sin_port = htons ( NB_DGRAM );
-  dest_sockaddr.sin_addr = dest_addr;
+  struct sockaddr_in dest_sockaddr = {
+    .sin_family = AF_INET,
+    .sin_port = htons ( NB_DGRAM ),
+    .sin_addr = dest_addr
+  };
 
   request.flags = htons ( FL_BROADCAST );
   request.question_count = htons ( 1 );
@@ -175,14 +176,12 @@ parse_response ( char *buff, unsigned int buffsize )
   int name_table_size;
   unsigned int offset = 0;
 
-  if ( ( response_header = malloc ( sizeof ( nbname_response_header_t ) ) ) ==
+  if ( ( response_header = calloc ( sizeof ( nbname_response_header_t ) ) ) ==
        NULL )
     return NULL;
-  if ( ( response_footer = malloc ( sizeof ( nbname_response_footer_t ) ) ) ==
+  if ( ( response_footer = calloc ( sizeof ( nbname_response_footer_t ) ) ) ==
        NULL )
     return NULL;
-  bzero ( response_header, sizeof ( nbname_response_header_t ) );
-  bzero ( response_footer, sizeof ( nbname_response_footer_t ) );
 
   if ( ( hostinfo = malloc ( sizeof ( struct nb_host_info ) ) ) == NULL )
     return NULL;

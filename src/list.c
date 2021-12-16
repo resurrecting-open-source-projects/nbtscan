@@ -41,8 +41,7 @@ new_list_item ( unsigned long content )
 {
   struct list_item *lst_item;
 
-  if ( ( lst_item = malloc (
-                 sizeof ( struct list_item ) ) ) == NULL )
+  if ( ( lst_item = malloc ( sizeof ( struct list_item ) ) ) == NULL )
     err_die ( "Malloc failed", quiet );
 
   lst_item->next = NULL;

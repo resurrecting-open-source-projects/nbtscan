@@ -175,8 +175,7 @@ print_range ( const struct ip_range *range )
 {
   struct in_addr *addr;
 
-  if ( ( addr = malloc ( sizeof ( struct in_addr ) ) ) ==
-       NULL )
+  if ( ( addr = malloc ( sizeof ( struct in_addr ) ) ) == NULL )
     err_die ( "Malloc failed", quiet );
 
   next_address ( range, 0, addr );

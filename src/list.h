@@ -45,3 +45,6 @@ compare ( struct list_item *item1, struct list_item *item2 );
 
 int
 insert ( struct list *lst, unsigned long content );
+
+int
+in_list ( struct list *lst, unsigned long content );

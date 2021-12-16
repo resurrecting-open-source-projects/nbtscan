@@ -40,19 +40,7 @@ USA.
 
 int quiet = 0;
 
-char *
-getnbservicename ( my_uint8_t service, int unique, char *name );
-
-struct nb_host_info *
-parse_response ( char *buff, int buffsize );
-
-int
-in_list ( struct list *lst, unsigned long content );
-
-void
-send_query ( int sock, struct in_addr dest_addr, my_uint32_t rtt_base );
-
-void
+static void
 print_banner ( void )
 {
   puts ( "\nNBTscan version 1.7.1.\n"
@@ -62,7 +50,7 @@ print_banner ( void )
          "2+.\n\n" );
 }
 
-void
+static void
 usage ( void )
 {
   puts ( "Usage:\nnbtscan [-v] [-d] [-e] [-l] [-t timeout] [-b bandwidth] "
@@ -115,7 +103,7 @@ usage ( void )
   exit ( 2 );
 }
 
-int
+static int
 set_range ( char *range_str, struct ip_range *range_struct )
 {
   if ( is_ip ( range_str, range_struct ) )
@@ -127,7 +115,7 @@ set_range ( char *range_str, struct ip_range *range_struct )
   return 0;
 }
 
-void
+static void
 print_header ( void )
 {
   printf ( "%-17s%-17s%-10s%-17s%-17s\n",
@@ -142,7 +130,7 @@ print_header ( void )
 
 #define DUP( code ) code, code
 
-void
+static void
 print_nb_host_info_header ( const nbname_response_header_t *header )
 {
   printf ( "Transaction ID: 0x%04x (%d)\n", DUP ( header->transaction_id ) );
@@ -161,7 +149,7 @@ print_nb_host_info_header ( const nbname_response_header_t *header )
   printf ( "Number of names: 0x%02x (%d)\n", DUP ( header->number_of_names ) );
 }
 
-void
+static void
 print_nb_host_info_footer ( const nbname_response_footer_t *footer )
 {
   printf ( "Adapter address: %02x:%02x:%02x:%02x:%02x:%02x\n",
@@ -211,7 +199,7 @@ print_nb_host_info_footer ( const nbname_response_footer_t *footer )
   printf ( "Packet sessions: 0x%04x (%d)\n", DUP ( footer->packet_sessions ) );
 }
 
-void
+static void
 d_print_hostinfo ( struct in_addr addr, const struct nb_host_info *hostinfo )
 {
   int i;
@@ -241,10 +229,10 @@ d_print_hostinfo ( struct in_addr addr, const struct nb_host_info *hostinfo )
     }
 
   if ( hostinfo->footer )
-    print_nb_host_info_footer ( hostinfo ->footer );
+    print_nb_host_info_footer ( hostinfo->footer );
 }
 
-int
+static int
 v_print_hostinfo ( struct in_addr addr,
                    const struct nb_host_info *hostinfo,
                    char *sf,
@@ -275,9 +263,7 @@ v_print_hostinfo ( struct in_addr addr,
             {
               printf ( "%s%s%s%s", inet_ntoa ( addr ), sf, name, sf );
               if ( hr )
-                printf (
-                        "%s\n",
-                        ( char * ) getnbservicename ( service, unique, name ) );
+                printf ( "%s\n", getnbservicename ( service, unique, name ) );
               else
                 {
                   printf ( "%02x", service );
@@ -291,9 +277,7 @@ v_print_hostinfo ( struct in_addr addr,
             {
               printf ( "%-17s", name );
               if ( hr )
-                printf (
-                        "%s\n",
-                        ( char * ) getnbservicename ( service, unique, name ) );
+                printf ( "%s\n", getnbservicename ( service, unique, name ) );
               else
                 {
                   printf ( "<%02x>", service );
@@ -325,7 +309,7 @@ v_print_hostinfo ( struct in_addr addr,
   return 1;
 }
 
-int
+static int
 print_hostinfo ( struct in_addr addr, struct nb_host_info *hostinfo, char *sf )
 {
   int i;
@@ -398,7 +382,7 @@ print_hostinfo ( struct in_addr addr, struct nb_host_info *hostinfo, char *sf )
 /* Print hostinfo in /etc/hosts or lmhosts format */
 /* If l is true adds #PRE to each line of output (for lmhosts) */
 
-void
+static void
 l_print_hostinfo ( struct in_addr addr, struct nb_host_info *hostinfo, int l )
 {
   int i;
@@ -649,7 +633,7 @@ main ( int argc, char *argv[] )
   if ( sock < 0 )
     err_die ( "Failed to create socket", quiet );
 
-  memset( &src_sockaddr, 0, sizeof src_sockaddr );
+  memset ( &src_sockaddr, 0, sizeof src_sockaddr );
   src_sockaddr.sin_family = AF_INET;
   if ( use137 )
     src_sockaddr.sin_port = htons ( NB_DGRAM );

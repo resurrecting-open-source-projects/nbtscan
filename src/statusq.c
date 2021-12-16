@@ -38,7 +38,7 @@
 extern int quiet;
 
 /* Start of code from Samba */
-int
+static int
 name_mangle ( char *In, char *Out, char name_type )
 {
   int i;
@@ -101,16 +101,13 @@ void
 send_query ( int sock, struct in_addr dest_addr, my_uint32_t rtt_base )
 {
   struct nbname_request request;
-  ;
   int status;
   struct timeval tv;
   char errmsg[80];
 
-  struct sockaddr_in dest_sockaddr = {
-    .sin_family = AF_INET,
-    .sin_port = htons ( NB_DGRAM ),
-    .sin_addr = dest_addr
-  };
+  struct sockaddr_in dest_sockaddr = { .sin_family = AF_INET,
+                                       .sin_port = htons ( NB_DGRAM ),
+                                       .sin_addr = dest_addr };
 
   request.flags = htons ( FL_BROADCAST );
   request.question_count = htons ( 1 );
@@ -141,7 +138,7 @@ send_query ( int sock, struct in_addr dest_addr, my_uint32_t rtt_base )
     }
 }
 
-my_uint32_t
+static my_uint32_t
 get32 ( void *data )
 {
   union
@@ -154,7 +151,7 @@ get32 ( void *data )
   return ( ntohl ( x.all ) );
 }
 
-my_uint16_t
+static my_uint16_t
 get16 ( void *data )
 {
   union
@@ -170,21 +167,22 @@ get16 ( void *data )
 struct nb_host_info *
 parse_response ( char *buff, unsigned int buffsize )
 {
-  struct nb_host_info *hostinfo = NULL;
+  struct nb_host_info *hostinfo;
   nbname_response_footer_t *response_footer;
   nbname_response_header_t *response_header;
   int name_table_size;
   unsigned int offset = 0;
 
-  if ( ( response_header = calloc ( sizeof ( nbname_response_header_t ) ) ) ==
-       NULL )
+  if ( ( response_header =
+                 calloc ( 1, sizeof ( nbname_response_header_t ) ) ) == NULL )
     return NULL;
-  if ( ( response_footer = calloc ( sizeof ( nbname_response_footer_t ) ) ) ==
-       NULL )
+  if ( ( response_footer =
+                 calloc ( 1, sizeof ( nbname_response_footer_t ) ) ) == NULL )
     return NULL;
 
   if ( ( hostinfo = malloc ( sizeof ( struct nb_host_info ) ) ) == NULL )
     return NULL;
+
   hostinfo->header = NULL;
   hostinfo->names = NULL;
   hostinfo->footer = NULL;

@@ -109,4 +109,13 @@ typedef struct nb_service
   char *service_name;
 } nb_service_t;
 
+char *
+getnbservicename ( my_uint8_t service, int unique, char *name );
+
+struct nb_host_info *
+parse_response ( char *buff, int buffsize );
+
+void
+send_query ( int sock, struct in_addr dest_addr, my_uint32_t rtt_base );
+
 #endif /* STATUSQ_H */

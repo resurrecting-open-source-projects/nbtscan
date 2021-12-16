@@ -77,7 +77,7 @@ is_range1 ( char *string, struct ip_range *range )
       if ( mask <= 0 || mask > 32 )
         return 0;
       strcpy ( ip, string );
-      ip[abs ( string - separator ) - 1] = 0;
+      ip[abs ( ( int ) ( string - separator ) ) - 1] = 0;
       if ( ( range->start_ip = inet_addr ( ip ) ) == INADDR_NONE )
         return 0;
       /*		mask=((1<<mask)-1)<<(sizeof(mask)*8-mask); */

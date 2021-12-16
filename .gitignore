@@ -1,9 +1,6 @@
 
 *.o
-*.log
-
 src/.deps
-
 INSTALL
 Makefile
 Makefile.in

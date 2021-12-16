@@ -84,6 +84,7 @@ compare ( struct list_item *item1, struct list_item *item2 )
     return 0;
   if ( item1->content > item2->content )
     return 1;
+
   return -1;
 }
 
@@ -153,16 +154,17 @@ insert ( struct list *lst, unsigned long content )
 int
 in_list ( struct list *lst, unsigned long content )
 {
-  struct list_item *temp_item, *item;
+  struct list_item *temp_item;
+  struct list_item item = { .content = content };
 
-  item = new_list_item ( content );
   if ( lst->head == NULL )
     return 0;
+
   temp_item = lst->head;
 
-  while ( compare ( temp_item, item ) < 0 )
+  while ( compare ( temp_item, &item ) < 0 )
     temp_item = temp_item->next;
-  if ( compare ( temp_item, item ) == 0 )
-    return 1;
-  return 0;
+
+  // return 1 is equal or 0 not equal
+  return !compare( temp_item, &item );
 }

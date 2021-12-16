@@ -133,7 +133,7 @@ send_query ( int sock, struct in_addr dest_addr, my_uint32_t rtt_base )
                     sizeof ( dest_sockaddr ) );
   if ( status == -1 )
     {
-      snprintf ( errmsg, 80, "%s\tSendto failed", inet_ntoa ( dest_addr ) );
+      snprintf ( errmsg, sizeof errmsg, "%s\tSendto failed", inet_ntoa ( dest_addr ) );
       err_print ( errmsg, quiet );
     }
 }
@@ -438,7 +438,7 @@ nb_service_t services[] = {
 char *
 getnbservicename ( my_uint8_t service, int unique, char *name )
 {
-  int i;
+  unsigned int i;
   char *unknown;
 
   unknown = malloc ( 100 );
@@ -446,11 +446,11 @@ getnbservicename ( my_uint8_t service, int unique, char *name )
   if ( !unknown )
     err_die ( "Malloc failed.\n", 0 );
 
-  for ( i = 0; i < 35; i++ )
+  for ( i = 0; i < sizeof services / sizeof services[0]; i++ )
     {
-      if ( strstr ( name, services[i].nb_name ) &&
-           service == services[i].service_number &&
-           unique == services[i].unique )
+      if ( service == services[i].service_number &&
+           unique == services[i].unique &&
+         strstr ( name, services[i].nb_name ) )
         return services[i].service_name;
     }
 

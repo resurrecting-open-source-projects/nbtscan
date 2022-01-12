@@ -22,9 +22,6 @@ AC_CANONICAL_TARGET
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([src/statusq.c])
 
-
-CFLAGS="-pedantic -Wall -Wextra -Wformat"
-
 dnl Checks for programs.
 AC_PROG_CC
 AC_PROG_INSTALL

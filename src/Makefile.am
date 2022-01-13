@@ -1,5 +1,5 @@
 # Copyright 1999-2003 Alla Bezroutchko <alla@inetcat.org>
-# Copyright 2018-2021 Joao Eriberto Mota Filho <eriberto@eriberto.pro.br>
+# Copyright 2018-2022 Joao Eriberto Mota Filho <eriberto@eriberto.pro.br>
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -20,4 +20,5 @@ bin_PROGRAMS = nbtscan
 nbtscan_SOURCES = nbtscan.c \
                   statusq.c statusq.h \
                   range.c  range.h \
-                  list.c  list.h
+                  list.c  list.h \
+                  errors.h

@@ -1,4 +1,4 @@
-# Copyright 2019-2021 Joao Eriberto Mota Filho <eriberto@eriberto.pro.br>
+# Copyright 2019-2022 Joao Eriberto Mota Filho <eriberto@eriberto.pro.br>
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -17,7 +17,7 @@
 SUBDIRS = src
 
 man_MANS= man/nbtscan.1
-EXTRA_DIST= man/nbtscan.1
+EXTRA_DIST= autogen.sh CONTRIBUTING.md man/nbtscan.1 README.md
 
 distclean-local:
 	-rm -rf autom4te.cache

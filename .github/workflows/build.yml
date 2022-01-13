@@ -1,0 +1,36 @@
+name: full-check
+
+on: [push, pull_request]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: first_build
+      run: |
+           ./autogen.sh
+           ./configure
+           make
+           sudo make install
+           sudo make uninstall
+           make distclean
+    - name: second_build
+      run: |
+           ./autogen.sh
+           ./configure
+           make dist
+           mkdir test_dist
+           mv nbtscan-*.tar.gz test_dist
+           cd test_dist
+           tar -xvf nbtscan-*.tar.gz
+           rm -f nbtscan-*.tar.gz
+           cd nbtscan-*
+           ./autogen.sh
+           ./configure
+           make
+           sudo make install
+           sudo make uninstall
+           make distclean

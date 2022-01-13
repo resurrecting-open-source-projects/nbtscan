@@ -43,7 +43,7 @@ int quiet = 0;
 static void
 print_banner ( void )
 {
-  puts ( "\nNBTscan version 1.7.1.\n"
+  puts ( "\nNBTscan version 1.7.2.\n"
          "This is a free software and it comes with absolutely no "
          "warranty.\n"
          "You can use, distribute and modify it under terms of GNU GPL "

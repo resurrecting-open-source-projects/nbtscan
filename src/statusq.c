@@ -6,6 +6,7 @@
    Main SMB server routine
    Copyright 1992-1995 Andrew Tridgell
    Copyright 2004      Jochen Friedrich <jochen@scram.de>
+   Copyright 2021      Mayco Souza Berghetti <mayco.s.berghetti@gmail.com>
 
    This program is free software; you can redistribute it and/or modif
    it under the terms of the GNU General Public License as published b

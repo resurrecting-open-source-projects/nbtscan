@@ -3,6 +3,7 @@
 # Copyright 2004      Jochen Friedrich <jochen@scram.de>
 # Copyright 2008      Walter "Wallie" Jakob Doekes <walter@wjd.nu>
 # Copyright 2015      Johan Eidenvall <bugreport@eidenvall.se>
+# Copyright 2021      Mayco Souza Berghetti <mayco.s.berghetti@gmail.com>
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License

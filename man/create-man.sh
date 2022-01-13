@@ -16,9 +16,9 @@ txt2man -d "$T2M_DATE" -t $T2M_NAME -r $T2M_NAME-$T2M_VERSION -s $T2M_LEVEL -v "
 #--------------------------------------------------------
 
 # Put here all data for your first manpage (in T2M lines)
-T2M_DATE="16 Ago 2021"
+T2M_DATE="13 Jan 2022"
 T2M_NAME=nbtscan
-T2M_VERSION=1.6
+T2M_VERSION=1.7.2
 T2M_LEVEL=1
 T2M_DESC="scan networks searching for NetBIOS information"
 create-man

@@ -86,7 +86,7 @@ Version 1.0.3 - February 2002
 
 - NBTscan now returns meaningful exit code (patch by James Troup for Debian Linux)
 - Added /etc/hosts and lmhosts format output (suggested by Anahuac de Paula Gil and Sigmund Baginov)
-- configure script now honours --prefix argument (patch by Petter Reinholdtsen)
+- configure script now honors --prefix argument (patch by Petter Reinholdtsen)
 - Error messages now include IP address that caused error
 - NBTscan accepts a file with a list of IP addresses to scan (suggested by Omas Jakobsson)
 - Service number is printed for unknown NetBIOS services in -h mode (suggested by Dan Wright) 
